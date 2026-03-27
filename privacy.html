@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — DataForge Systems LLC</title>
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132040;
+            --navy-mid: #1a2d50;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --text: #cbd5e1;
+            --text-bright: #e2e8f0;
+            --text-heading: #f1f5f9;
+            --border: #1e3a5f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--navy);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        nav {
+            background: var(--navy-light);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+        h1 {
+            font-size: 2rem;
+            color: var(--text-heading);
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.7;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: var(--text-heading);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 {
+            font-size: 1.05rem;
+            color: var(--text-bright);
+            margin: 1.5rem 0 0.5rem;
+        }
+        p { margin-bottom: 1rem; }
+        ul, ol {
+            margin: 0.5rem 0 1rem 1.5rem;
+        }
+        li { margin-bottom: 0.4rem; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        strong { color: var(--text-bright); }
+
+        .callout {
+            background: var(--navy-mid);
+            border-left: 3px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+        }
+        .callout-green {
+            border-left-color: #22c55e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            color: var(--text-heading);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--navy-mid);
+        }
+        td { font-size: 0.95rem; }
+
+        footer {
+            background: var(--navy-light);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text);
+            opacity: 0.7;
+        }
+        footer a { color: var(--accent); }
+
+        @media (max-width: 600px) {
+            nav { flex-direction: column; gap: 0.75rem; text-align: center; }
+            .container { padding: 2rem 1.25rem 3rem; }
+            h1 { font-size: 1.5rem; }
+            table { font-size: 0.9rem; }
+            th, td { padding: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="https://dataforgesystems.io" class="logo">Data<span>Forge</span> Systems</a>
+    <div class="nav-links">
+        <a href="terms.html">Terms of Service</a>
+        <a href="eula.html">EULA</a>
+        <a href="privacy.html" class="active">Privacy Policy</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h1>Privacy Policy</h1>
+    <p class="subtitle">Last updated: March 23, 2026</p>
+
+    <p>At DataForge Systems LLC ("DataForge," "we," "us"), we believe your data is yours. This Privacy Policy explains what information we collect, what we don't collect, and how we handle the data we do have.</p>
+
+    <div class="callout callout-green">
+        <p><strong>The short version:</strong> SAIP processes all data locally on your machine. We never receive, store, or have access to your software inventory data. The only personal information we collect is what's needed to complete your purchase and improve our website.</p>
+    </div>
+
+    <h2>1. Data That Stays on Your Machine</h2>
+    <p>SAIP — the Software Asset Intelligence Platform — is a desktop application. When you use SAIP to scan, audit, or analyze your software assets:</p>
+    <ul>
+        <li>All processing happens <strong>locally on your computer</strong>.</li>
+        <li>Your software inventory data is <strong>never transmitted</strong> to DataForge Systems or any third party.</li>
+        <li>Scan results, reports, and analyses are <strong>stored only on your device</strong>.</li>
+        <li>We have <strong>no ability to access, view, or retrieve</strong> your inventory data.</li>
+    </ul>
+    <p>You are solely responsible for the security, backup, and management of data stored on your own systems.</p>
+
+    <h2>2. Information We Do Collect</h2>
+    <p>We collect a limited amount of personal information through the following channels:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>What</th>
+                <th>When</th>
+                <th>Why</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Email address</strong></td>
+                <td>When you purchase SAIP or subscribe via Gumroad</td>
+                <td>Order fulfillment, license delivery, subscription management, and important product communications</td>
+            </tr>
+            <tr>
+                <td><strong>Payment information</strong></td>
+                <td>At checkout (processed by Gumroad)</td>
+                <td>We do not directly handle or store payment card data — this is managed entirely by Gumroad's payment processor</td>
+            </tr>
+            <tr>
+                <td><strong>Website analytics</strong></td>
+                <td>When you visit dataforgesystems.io</td>
+                <td>Understanding how visitors use our site so we can improve it. Collected via Netlify's built-in analytics</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>We use the limited information we collect to:</p>
+    <ul>
+        <li>Deliver your SAIP license and manage your account.</li>
+        <li>Process subscription renewals and cancellations.</li>
+        <li>Send important product updates or security notices (not marketing spam).</li>
+        <li>Improve our website based on aggregated analytics.</li>
+        <li>Respond to support inquiries or legal requests.</li>
+    </ul>
+
+    <h2>4. Information We Do NOT Collect</h2>
+    <p>To be clear, DataForge Systems does <strong>not</strong> collect:</p>
+    <ul>
+        <li>Your software inventory or asset data.</li>
+        <li>SAIP scan results or reports.</li>
+        <li>Information about the software installed on your systems.</li>
+        <li>Usage telemetry or behavioral data from the SAIP application.</li>
+        <li>Contacts, files, or other personal data from your device.</li>
+    </ul>
+
+    <h2>5. Third-Party Services</h2>
+    <p>We use the following third-party services that may process limited data:</p>
+    <ul>
+        <li><strong>Gumroad:</strong> Handles purchases and subscription billing. Gumroad collects payment information and email addresses under their own privacy policy.</li>
+        <li><strong>Netlify:</strong> Hosts our website and provides analytics. Netlify may collect standard web server logs (IP addresses, browser type, pages visited).</li>
+    </ul>
+    <p>We recommend reviewing the privacy policies of these services for details on how they handle data.</p>
+
+    <h2>6. Data Sharing</h2>
+    <div class="callout callout-green">
+        <p><strong>We do not sell, rent, or trade your personal information to third parties.</strong></p>
+    </div>
+    <p>We may share information only in these limited circumstances:</p>
+    <ul>
+        <li><strong>Service providers:</strong> With Gumroad and Netlify as described above, solely for operating our business.</li>
+        <li><strong>Legal requirements:</strong> If required by law, court order, or governmental regulation.</li>
+        <li><strong>Business transfer:</strong> In connection with a merger, acquisition, or sale of assets, in which case you would be notified.</li>
+    </ul>
+
+    <h2>7. Data Retention</h2>
+    <p>We retain your email address and purchase records for as long as needed to fulfill our obligations (license management, subscription services, and legal compliance). If you request deletion of your data, we will remove it within a reasonable timeframe, subject to any legal retention requirements.</p>
+
+    <h2>8. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+        <li><strong>Access</strong> the personal information we hold about you.</li>
+        <li><strong>Correct</strong> inaccurate information.</li>
+        <li><strong>Delete</strong> your personal data (subject to legal obligations).</li>
+        <li><strong>Opt out</strong> of non-essential communications.</li>
+    </ul>
+    <p>To exercise any of these rights, contact <a href="mailto:privacy@dataforgesystems.io">privacy@dataforgesystems.io</a>.</p>
+
+    <h2>9. GDPR and International Users</h2>
+    <p>If you are located in the European Economic Area (EEA) or other jurisdictions with data protection laws:</p>
+    <ul>
+        <li><strong>Local processing:</strong> SAIP processes all data on your device. No inventory data is transferred to us or to any server, so GDPR data transfer concerns do not apply to SAIP usage data.</li>
+        <li><strong>Minimal personal data:</strong> The only personal data we collect is your email address (for purchases) and standard website analytics. We process this data based on legitimate interest (operating our business) and contractual necessity (fulfilling your purchase).</li>
+        <li><strong>Your rights:</strong> You have the right to access, rectify, erase, restrict processing, data portability, and object to processing. Contact <a href="mailto:privacy@dataforgesystems.io">privacy@dataforgesystems.io</a> to exercise these rights.</li>
+    </ul>
+
+    <h2>10. Security</h2>
+    <p>We take reasonable measures to protect the limited personal information we hold. However, no method of electronic transmission or storage is completely secure. We cannot guarantee absolute security of data transmitted to or stored by our third-party service providers.</p>
+
+    <h2>11. Children's Privacy</h2>
+    <p>SAIP and our services are not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can delete it.</p>
+
+    <h2>12. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last updated" date. We encourage you to review this policy periodically.</p>
+
+    <h2>13. Governing Law</h2>
+    <p>This Privacy Policy is governed by the laws of the <strong>State of Alabama</strong>, United States.</p>
+
+    <h2>14. Contact Us</h2>
+    <p>If you have questions or concerns about this Privacy Policy or your data, contact us:</p>
+    <ul>
+        <li><strong>Privacy inquiries:</strong> <a href="mailto:privacy@dataforgesystems.io">privacy@dataforgesystems.io</a></li>
+        <li><strong>General legal:</strong> <a href="mailto:legal@dataforgesystems.io">legal@dataforgesystems.io</a></li>
+        <li><strong>Website:</strong> <a href="https://dataforgesystems.io">dataforgesystems.io</a></li>
+        <li><strong>Company:</strong> DataForge Systems LLC</li>
+    </ul>
+
+    <p>See also: <a href="terms.html">Terms of Service</a> | <a href="eula.html">End User License Agreement</a></p>
+
+</div>
+
+<footer>
+    &copy; 2026 DataForge Systems LLC. All rights reserved. |
+    <a href="terms.html">Terms</a> |
+    <a href="eula.html">EULA</a> |
+    <a href="privacy.html">Privacy</a>
+</footer>
+
+</body>
+</html>
