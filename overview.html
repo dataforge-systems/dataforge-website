@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Overview — DataForge Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #060d1a;
+  --navy-2:  #091222;
+  --navy-3:  #0c1a30;
+  --blue:    #1a56db;
+  --blue-lt: #3f83f8;
+  --cyan:    #06b6d4;
+  --white:   #f8fafc;
+  --gray-1:  #e2e8f0;
+  --gray-2:  #94a3b8;
+  --gray-3:  #475569;
+  --gray-4:  #1e2d45;
+  --green:   #059669;
+  --green-lt:#34d399;
+  --purple:  #7c3aed;
+  --purple-lt:#a78bfa;
+  --amber:   #d97706;
+  --amber-lt:#fbbf24;
+  --teal:    #0d9488;
+  --teal-lt: #2dd4bf;
+  --line:    rgba(255,255,255,0.07);
+  --font:    'Inter', -apple-system, sans-serif;
+  --display: 'Sora', sans-serif;
+}
+body { font-family: var(--font); background: var(--navy); color: var(--white); line-height: 1.6; padding: 40px 24px 80px; }
+
+/* NAV */
+.nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
+.nav-logo { font-family:var(--display); font-weight:800; font-size:1.1rem; }
+.nav-logo span { color:var(--blue-lt); }
+.nav-links { display:flex; gap:20px; font-size:0.875rem; color:var(--gray-2); }
+.nav-links a { color:var(--gray-2); text-decoration:none; }
+.nav-links a:hover { color:var(--white); }
+
+/* HEADER */
+.header { text-align:center; margin-bottom:48px; }
+.header h1 { font-family:var(--display); font-size:2rem; font-weight:800; margin-bottom:8px; }
+.header p { color:var(--gray-2); max-width:560px; margin:0 auto; }
+.confidential { display:inline-block; background:rgba(220,38,38,0.1); border:1px solid rgba(220,38,38,0.3); color:#fca5a5; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px; border-radius:4px; margin-bottom:16px; }
+
+/* SECTIONS */
+.section { margin-bottom:32px; }
+.section-label { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-3); margin-bottom:12px; }
+
+/* GRID */
+.grid { display:grid; gap:12px; }
+.grid-5 { grid-template-columns:repeat(5,1fr); }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.grid-6 { grid-template-columns:repeat(6,1fr); }
+
+/* CARDS */
+.card { border-radius:10px; padding:16px; border:1px solid; }
+.card-title { font-weight:700; font-size:0.875rem; margin-bottom:4px; }
+.card-sub { font-size:0.75rem; opacity:0.8; }
+
+.blue  { background:rgba(26,86,219,0.12);  border-color:rgba(63,131,248,0.3);  color:var(--blue-lt); }
+.teal  { background:rgba(13,148,136,0.12); border-color:rgba(45,212,191,0.3);  color:var(--teal-lt); }
+.purple{ background:rgba(124,58,237,0.12); border-color:rgba(167,139,250,0.3); color:var(--purple-lt); }
+.amber { background:rgba(215,119,6,0.12);  border-color:rgba(251,191,36,0.3);  color:var(--amber-lt); }
+.green { background:rgba(5,150,105,0.12);  border-color:rgba(52,211,153,0.3);  color:var(--green-lt); }
+.gray  { background:rgba(30,45,69,0.6);    border-color:rgba(71,85,105,0.4);   color:var(--gray-2); }
+
+.card-title { color:var(--white); }
+
+/* ARROWS */
+.arrow-row { display:flex; align-items:center; justify-content:center; gap:0; }
+.arrow-row .card { flex:1; }
+.arrow { flex-shrink:0; width:24px; text-align:center; color:var(--gray-3); font-size:14px; }
+
+/* DIVIDER */
+.divider { border:none; border-top:1px solid var(--line); margin:24px 0; position:relative; }
+.divider-label { position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--navy); padding:0 12px; font-size:0.7rem; color:var(--gray-3); white-space:nowrap; }
+
+/* COST BAR */
+.cost-bar { background:var(--navy-3); border:1px solid var(--gray-4); border-radius:8px; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.cost-bar .label { font-size:0.8rem; font-weight:600; color:var(--white); }
+.cost-bar .items { display:flex; gap:16px; font-size:0.75rem; color:var(--gray-2); }
+
+/* LEGEND */
+.legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--gray-2); }
+.legend-dot { width:10px; height:10px; border-radius:3px; }
+
+/* FOOTER */
+.footer { text-align:center; color:var(--gray-3); font-size:0.75rem; margin-top:48px; padding-top:24px; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><span>Data</span>Forge Systems</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/help">Help</a>
+  </div>
+</nav>
+
+<div class="header">
+  <div class="confidential">Internal — confidential</div>
+  <h1>Platform Overview</h1>
+  <p>How DataForge Systems works — from customer to infrastructure to revenue.</p>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#1a56db"></div>Customer-facing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0d9488"></div>SAIP app</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>Ops Center</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div>Intelligence pipeline</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>Revenue</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1e2d45"></div>Infrastructure</div>
+</div>
+
+<!-- CUSTOMER JOURNEY -->
+<div class="section">
+  <div class="section-label">Customer journey</div>
+  <div class="arrow-row">
+    <div class="card blue">
+      <div class="card-title">Website</div>
+      <div class="card-sub">dataforgesystems.io</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card blue">
+      <div class="card-title">Checkout</div>
+      <div class="card-sub">buy.dataforgesystems.io</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card teal">
+      <div class="card-title">SAIP</div>
+      <div class="card-sub">Desktop app (100% offline)</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card blue">
+      <div class="card-title">Subscriber Portal</div>
+      <div class="card-sub">Intelligence downloads</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card blue">
+      <div class="card-title">Help Center</div>
+      <div class="card-sub">Docs, guides, support</div>
+    </div>
+  </div>
+</div>
+
+<!-- SAIP INTERNALS -->
+<div class="section">
+  <div class="section-label">SAIP — inside the app</div>
+  <div class="grid grid-5">
+    <div class="card teal">
+      <div class="card-title">Normalization</div>
+      <div class="card-sub">6-level priority engine — customer overrides, platform KB, intelligence mappings, fuzzy match</div>
+    </div>
+    <div class="card teal">
+      <div class="card-title">License position</div>
+      <div class="card-sub">Per-user and per-device counting — suite suppression per-user aware</div>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Intelligence import</div>
+      <div class="card-sub">Import monthly KB JSON — 8,461+ mappings applied instantly</div>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Multi-source dedup</div>
+      <div class="card-sub">MECM, Intune, Tanium combined — duplicate devices detected and merged</div>
+    </div>
+    <div class="card teal">
+      <div class="card-title">Exports</div>
+      <div class="card-sub">Excel, CSV, JSON, PDF — audit-ready, timestamped</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"><span class="divider-label">Internal operations</span>
+
+<!-- OPS CENTER -->
+<div class="section">
+  <div class="section-label">Ops Center — internal tool (never ships to customers)</div>
+  <div class="grid grid-5">
+    <div class="card purple">
+      <div class="card-title">License Manager</div>
+      <div class="card-sub">Generate keys, track registry, revoke, delete, sync to GitHub</div>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Intelligence tab</div>
+      <div class="card-sub">Run pipeline, bulk run, unknown product lookup, publish portal</div>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Review tab</div>
+      <div class="card-sub">Smart Auto-Approve (85%), manual review, export approved JSON</div>
+    </div>
+    <div class="card purple">
+      <div class="card-title">M&S renewals</div>
+      <div class="card-sub">Dashboard — expiring within 60 days, send renewal email, mark renewed</div>
+    </div>
+    <div class="card purple">
+      <div class="card-title">Settings</div>
+      <div class="card-sub">API keys, private key path, GitHub token, Gumroad links</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTELLIGENCE PIPELINE -->
+<div class="section">
+  <div class="section-label">Intelligence pipeline — runs monthly (~90 min, ~$0.50)</div>
+  <div class="arrow-row">
+    <div class="card amber">
+      <div class="card-title">Brave Search</div>
+      <div class="card-sub">Live IT community data — forums, MECM communities</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card amber">
+      <div class="card-title">Claude API</div>
+      <div class="card-sub">Generate naming variants, exclusions, product renames</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card amber">
+      <div class="card-title">Product catalog</div>
+      <div class="card-sub">79+ products — grows as new products are discovered</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card amber">
+      <div class="card-title">Approved JSON</div>
+      <div class="card-sub">Cumulative — 8,461+ mappings, 2,628+ exclusions</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card amber">
+      <div class="card-title">GitHub archive</div>
+      <div class="card-sub">Versioned backup — subscribers download via portal</div>
+    </div>
+  </div>
+</div>
+
+<!-- INFRASTRUCTURE -->
+<div class="section">
+  <div class="section-label">Infrastructure</div>
+  <div class="grid grid-5">
+    <div class="card gray">
+      <div class="card-title">GitHub</div>
+      <div class="card-sub">License registry sync — intelligence archive backup — source control</div>
+    </div>
+    <div class="card gray">
+      <div class="card-title">Railway</div>
+      <div class="card-sub">Portal API — verifies email + license key — serves download links</div>
+    </div>
+    <div class="card gray">
+      <div class="card-title">Netlify</div>
+      <div class="card-sub">Website hosting — auto-deploys from GitHub on every push</div>
+    </div>
+    <div class="card gray">
+      <div class="card-title">Gumroad</div>
+      <div class="card-sub">One-time purchases — M&S yearly billing — Intelligence monthly billing</div>
+    </div>
+    <div class="card gray">
+      <div class="card-title">Google Workspace</div>
+      <div class="card-sub">support@, sales@, kb@, legal@, privacy@ aliases</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"><span class="divider-label">Business model</span>
+
+<!-- REVENUE -->
+<div class="section">
+  <div class="section-label">Revenue streams</div>
+  <div class="grid grid-6">
+    <div class="card green">
+      <div class="card-title">Professional</div>
+      <div class="card-sub">$299 one-time · 3 projects · 14-day trial</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Business</div>
+      <div class="card-sub">$999 one-time · 10 projects · intelligence included</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Enterprise</div>
+      <div class="card-sub">$2,999/year · unlimited · M&S + intel all-in</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Intelligence sub</div>
+      <div class="card-sub">$49/month · monthly KB updates · cancel anytime</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Pro M&S</div>
+      <div class="card-sub">$99/year · updates + support · year 1 included</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Business M&S</div>
+      <div class="card-sub">$299/year · priority support · year 1 included</div>
+    </div>
+  </div>
+</div>
+
+<!-- COST BAR -->
+<div class="cost-bar">
+  <div class="label">Monthly operating cost: ~$114.50</div>
+  <div class="items">
+    <span>Claude Max $100</span>
+    <span>Netlify $9</span>
+    <span>Railway $5</span>
+    <span>Anthropic API ~$0.50</span>
+    <span>GitHub Free</span>
+    <span>Gumroad Free + 10% per sale</span>
+  </div>
+</div>
+
+<!-- WORKFLOW -->
+<div class="section" style="margin-top:32px;">
+  <div class="section-label">Monthly operations workflow</div>
+  <div class="grid grid-4" style="gap:8px;">
+    <div class="card gray" style="border-left:3px solid var(--purple);">
+      <div class="card-title" style="color:var(--purple-lt);">Step 1</div>
+      <div class="card-sub" style="color:var(--white);font-weight:600;margin:4px 0 4px;">Run intelligence pipeline</div>
+      <div class="card-sub">Ops Center → Intelligence → Refresh & Update · ~90 min · ~$0.50</div>
+    </div>
+    <div class="card gray" style="border-left:3px solid var(--purple);">
+      <div class="card-title" style="color:var(--purple-lt);">Step 2</div>
+      <div class="card-sub" style="color:var(--white);font-weight:600;margin:4px 0 4px;">Review and approve</div>
+      <div class="card-sub">Smart Auto-Approve → review flagged items → export approved file</div>
+    </div>
+    <div class="card gray" style="border-left:3px solid var(--blue);">
+      <div class="card-title" style="color:var(--blue-lt);">Step 3</div>
+      <div class="card-sub" style="color:var(--white);font-weight:600;margin:4px 0 4px;">Publish to portal</div>
+      <div class="card-sub">Publish to Portal → auto-pushes to GitHub → subscribers download</div>
+    </div>
+    <div class="card gray" style="border-left:3px solid var(--green);">
+      <div class="card-title" style="color:var(--green-lt);">Per sale</div>
+      <div class="card-sub" style="color:var(--white);font-weight:600;margin:4px 0 4px;">Fulfill license</div>
+      <div class="card-sub">Confirm Gumroad → License Manager → generate key → send email → save registry</div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  DataForge Systems LLC · Internal use only · Confidential · dataforgesystems.io
+</footer>
+
+</body>
+</html>
