@@ -454,6 +454,9 @@ window.addEventListener('DOMContentLoaded', function() {
   if (sa) { sa.href = ['mailto:sales','dataforgesystems.io'].join('@'); }
 });
 </script>
-<script src="/support_bot/widget.js"></script>
+<script>
+  window.DATAFORGE_SUPPORT_URL = 'https://dataforge-support-bot-production.up.railway.app/api/support';
+</script>
+<script src="/widget.js"></script>
 </body>
 </html>
