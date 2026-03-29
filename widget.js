@@ -154,7 +154,7 @@
       if (xhr.status >= 200 && xhr.status < 300) {
         try {
           var data = JSON.parse(xhr.responseText);
-          var reply = data.reply || "";
+          var reply = data.response || "";
           messages.push({ role: "assistant", content: reply });
           appendMessage("assistant", reply);
           if (data.escalate) {
