@@ -162,7 +162,7 @@ h2 em { font-style: normal; color: var(--blue-lt); }
 
 /* PRICING */
 .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 860px; margin: 0 auto; }
-.p-card { background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 12px; padding: 36px; display: flex; flex-direction: column; position: relative; }
+.p-card { background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 12px; padding: 36px; display: flex; flex-direction: column; position: relative; height: 100%; }
 .p-card.featured { border-color: var(--blue); background: linear-gradient(160deg, rgba(26,86,219,0.09) 0%, var(--navy-2) 60%); }
 .p-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 0 0 7px 7px; white-space: nowrap; }
 .p-tier { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-lt); margin-bottom: 8px; }
@@ -176,6 +176,8 @@ h2 em { font-style: normal; color: var(--blue-lt); }
 .p-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.78rem; color: var(--gray-2); padding: 6px 0; }
 .p-feats li strong { color: var(--white); font-weight: 500; }
 .chk { width: 15px; height: 15px; border-radius: 50%; background: rgba(5,150,105,0.14); border: 1px solid rgba(52,211,153,0.2); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; color: var(--green-lt); }
+.p-card-enterprise .btn { border-color: #7c3aed !important; color: #7c3aed !important; }
+.p-card-enterprise .btn:hover { background: #7c3aed !important; color: #fff !important; }
 
 /* PORTAL */
 .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
@@ -429,7 +431,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       <h2 style="text-align:center">Simple, transparent pricing</h2>
       <p class="section-desc" style="text-align:center;margin:10px auto 0;max-width:560px">One-time purchase or annual subscription. First year Maintenance & Support included on perpetual tiers. No per-seat fees. No hidden costs.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1340px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1340px;margin:0 auto;align-items:stretch;">
 
       <!-- PROFESSIONAL -->
       <div class="p-card">
@@ -497,8 +499,8 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       </div>
 
       <!-- ENTERPRISE -->
-      <div class="p-card" style="border-color:#334155">
-        <div class="p-tier" style="color:#94a3b8">Enterprise</div>
+      <div class="p-card p-card-enterprise" style="border-color:#7c3aed;background:linear-gradient(160deg, rgba(124,58,237,0.09) 0%, var(--navy-2) 60%);">
+        <div class="p-tier" style="color:#7c3aed">Enterprise</div>
         <div class="p-name">SAIP Enterprise</div>
         <div class="p-desc">For large organizations and regulated environments. Full platform with SLA, dedicated support, and intelligence included.</div>
         <div class="p-price"><sup>$</sup>14,999</div>
@@ -514,7 +516,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
           <li><span class="chk">✓</span><span>Annual roadmap call</span></li>
           <li><span class="chk">✓</span><span>EULA and MSA available</span></li>
         </ul>
-        <a href="javascript:void(0)" onclick="window.location='mailto:sales\x40dataforgesystems.io'" class="btn btn-ghost btn-lg" style="width:100%;justify-content:center;margin-top:auto">Contact Sales</a>
+        <a href="javascript:void(0)" onclick="window.location='mailto:sales\x40dataforgesystems.io'" class="btn btn-ghost btn-lg" style="width:100%;justify-content:center;margin-top:auto;border-color:#7c3aed;color:#7c3aed">Contact Sales</a>
       </div>
 
     </div>
