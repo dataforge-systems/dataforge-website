@@ -165,12 +165,12 @@ h2 em { font-style: normal; color: var(--blue-lt); }
 .p-card { background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 12px; padding: 36px; display: flex; flex-direction: column; position: relative; height: 100%; }
 .p-card.featured { border-color: var(--blue); background: linear-gradient(160deg, rgba(26,86,219,0.09) 0%, var(--navy-2) 60%); }
 .p-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 0 0 7px 7px; white-space: nowrap; }
-.p-tier { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-lt); margin-bottom: 8px; }
-.p-name { font-family: var(--display); font-size: 1.25rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 8px; }
-.p-desc { font-size: 0.78rem; color: var(--gray-2); line-height: 1.6; margin-bottom: 24px; }
+.p-tier { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-lt); margin-bottom: 8px; min-height: 20px; }
+.p-name { font-family: var(--display); font-size: 1.25rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 8px; min-height: 30px; }
+.p-desc { font-size: 0.78rem; color: var(--gray-2); line-height: 1.6; margin-bottom: 24px; min-height: 76px; }
 .p-price { font-family: var(--display); font-size: 2.8rem; font-weight: 800; color: var(--white); letter-spacing: -0.03em; line-height: 1; }
 .p-price sup { font-size: 1.1rem; font-weight: 600; vertical-align: top; margin-top: 7px; display: inline-block; }
-.p-period { font-size: 0.7rem; color: var(--gray-3); margin: 6px 0 24px; font-weight: 500; }
+.p-period { font-size: 0.7rem; color: var(--gray-3); margin: 6px 0 24px; font-weight: 500; min-height: 34px; }
 .p-div { height: 1px; background: var(--line); margin-bottom: 20px; }
 .p-feats { list-style: none; flex: 1; margin-bottom: 28px; }
 .p-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.78rem; color: var(--gray-2); padding: 6px 0; }
@@ -219,6 +219,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
   .steps { grid-template-columns: repeat(3,1fr); }
   .steps::before { display: none; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .p-tier, .p-name, .p-desc, .p-period { min-height: 0; }
 }
 @media (max-width: 768px) {
   .section { padding: 60px 24px; }
