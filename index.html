@@ -266,7 +266,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
         Software Asset Intelligence Platform
       </div>
       <h1>Raw inventory data.<br><em>Trusted license position.</em></h1>
-      <p class="hero-body">SAIP normalizes messy software discovery exports from MECM, Intune, and Tanium — mapping raw product names to canonical records, suppressing suite duplicates, and calculating true license demand. All offline, on your machine. No cloud required.</p>
+      <p class="hero-body">SAIP normalizes messy software discovery exports from MECM, Intune, Tanium, Lansweeper, ServiceNow, and more — mapping raw product names to canonical records, suppressing suite duplicates, and calculating true license demand. All offline, on your machine. No cloud required.</p>
       <div class="hero-ctas">
         <a href="https://github.com/dataforge-systems/dataforge-website/releases/download/v1.0.0/SAIP_Setup.exe" class="btn btn-solid btn-lg">Download Free Trial</a>
         <a href="#how" class="btn btn-ghost btn-lg">How it works</a>
@@ -367,7 +367,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-title">Load sources</div>
-        <div class="step-body">Import CSV or XLSX exports from MECM, Intune, Tanium, or any discovery tool. Multiple sources per project.</div>
+        <div class="step-body">Import CSV or XLSX exports from MECM, Intune, Tanium, Lansweeper, ServiceNow, or any discovery tool. Multiple sources per project.</div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
@@ -409,7 +409,8 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">License position calculation</div><div class="feat-body">Per-user products count distinct usernames. Per-device products count distinct hostnames. Demand quantities reflect your real obligation — not raw install counts.</div></div>
       <div class="feat"><div class="feat-icon">🚫</div><div class="feat-title">First-class exclusions</div><div class="feat-body">Drivers, VC++ redistributables, .NET runtimes, KB patches, OEM utilities, and update agents are identified and removed before normalization runs.</div></div>
       <div class="feat"><div class="feat-icon">💰</div><div class="feat-title">Cost and exposure tracking</div><div class="feat-body">Enter contract values, renewal dates, and owned quantities. View coverage status, shortfall risk, and total portfolio spend before you export.</div></div>
-      <div class="feat"><div class="feat-icon">🏢</div><div class="feat-title">Multi-source deduplication</div><div class="feat-body">Import from MECM, Intune, and Tanium in the same project. Duplicate records across sources are automatically deduplicated — one device, one count, regardless of how many tools reported it.</div></div>
+      <div class="feat"><div class="feat-icon">🔌</div><div class="feat-title">Broad source compatibility</div><div class="feat-body">Works with any CSV or Excel export. MECM/SCCM, Intune, Tanium, Lansweeper, PDQ Inventory, Spiceworks, Qualys CSAM, Tenable, Ivanti, ManageEngine, Jamf, VMware Workspace ONE, Hexnode, ServiceNow CMDB, Cherwell, Remedy/BMC, CrowdStrike Falcon, SentinelOne, Rapid7. Column mapping is fully manual — any format works.</div></div>
+      <div class="feat"><div class="feat-icon">🏢</div><div class="feat-title">Multi-source deduplication</div><div class="feat-body">Import from multiple tools in the same project. Duplicate records across sources are automatically deduplicated — one device, one count, regardless of how many tools reported it.</div></div>
       <div class="feat"><div class="feat-icon">🖥️</div><div class="feat-title">Duplicate device detection</div><div class="feat-body">Automatically detects when the same device appears under different name formats — PC-CORP-001, pc-corp-001, PC-Corp-001. Preview affected rows before merging to see the exact license impact.</div></div>
       <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Fully offline</div><div class="feat-body">Your inventory data never leaves your machine. No cloud upload, no SaaS account, no DPA required. Installs and runs in air-gapped and government environments.</div></div>
       <div class="feat"><div class="feat-icon">📥</div><div class="feat-title">Power BI-ready exports</div><div class="feat-body">Formatted Excel workbook with five tabs, flat CSV with canonical field names, and structured JSON. All exports are timestamped and audit-ready.</div></div>
@@ -592,7 +593,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
         <div class="p-info-title">What subscribers receive each month</div>
         <p class="p-info-body">Each update is a versioned, self-contained JSON file you import at your own pace. Previous versions are always available. Nothing is forced or automatic.</p>
         <ul class="p-list">
-          <li><div class="p-list-icon">📦</div><span>New raw naming variants — the exact strings MECM, Intune, and Tanium produce for every product</span></li>
+          <li><div class="p-list-icon">📦</div><span>New raw naming variants — the exact strings MECM, Intune, Tanium, Lansweeper, ServiceNow, and more produce for every product</span></li>
           <li><div class="p-list-icon">🆕</div><span>New canonical products as vendors release, rename, and retire software titles</span></li>
           <li><div class="p-list-icon">🧩</div><span>Updated suite rules when vendors change what a license tier includes</span></li>
           <li><div class="p-list-icon">🚫</div><span>New exclusion patterns for emerging deployment artifacts, agents, and helper utilities</span></li>

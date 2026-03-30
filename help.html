@@ -241,15 +241,46 @@ footer a { color: var(--gray-2); margin: 0 10px; }
 
     <!-- Sources -->
     <h2 id="sources">Importing Sources</h2>
-    <p>SAIP accepts CSV and XLSX exports from MECM/SCCM, Intune, and Tanium. You can import multiple source files into the same project — SAIP combines and deduplicates them automatically.</p>
+    <p>SAIP works with any CSV or Excel export. Column mapping is fully manual so any format works — if your tool can export to CSV or XLSX, SAIP can read it. You can import multiple source files into the same project and SAIP combines and deduplicates them automatically.</p>
 
-    <h3>Supported formats</h3>
+    <h3>Discovery & Inventory Tools</h3>
     <ul>
       <li><strong>MECM / SCCM</strong> — Add/Remove Programs inventory report (CSV)</li>
       <li><strong>Microsoft Intune</strong> — Discovered apps export (CSV)</li>
       <li><strong>Tanium</strong> — Software inventory report (CSV or XLSX)</li>
-      <li><strong>Manual inventory</strong> — Any file with software name, device, and user columns</li>
+      <li><strong>Lansweeper</strong> — Software inventory export (CSV or XLSX)</li>
+      <li><strong>PDQ Inventory</strong> — Applications report (CSV)</li>
+      <li><strong>Spiceworks</strong> — Software inventory export (CSV)</li>
+      <li><strong>Qualys CSAM</strong> — Software inventory export (CSV)</li>
+      <li><strong>Tenable</strong> — Installed software export (CSV)</li>
+      <li><strong>Ivanti</strong> — Software inventory report (CSV or XLSX)</li>
+      <li><strong>ManageEngine</strong> — Software inventory export (CSV or XLSX)</li>
     </ul>
+
+    <h3>Endpoint Management</h3>
+    <ul>
+      <li><strong>Jamf</strong> — Applications inventory export (CSV)</li>
+      <li><strong>VMware Workspace ONE</strong> — Apps export (CSV)</li>
+      <li><strong>Hexnode</strong> — Application inventory export (CSV)</li>
+    </ul>
+
+    <h3>ITSM / CMDB</h3>
+    <ul>
+      <li><strong>ServiceNow CMDB</strong> — Software install table export (CSV or XLSX)</li>
+      <li><strong>Cherwell</strong> — CI software export (CSV)</li>
+      <li><strong>Remedy / BMC</strong> — Software asset export (CSV)</li>
+    </ul>
+
+    <h3>Security Tools</h3>
+    <ul>
+      <li><strong>CrowdStrike Falcon</strong> — Installed applications export (CSV)</li>
+      <li><strong>SentinelOne</strong> — Applications inventory export (CSV)</li>
+      <li><strong>Rapid7</strong> — Software inventory export (CSV)</li>
+    </ul>
+
+    <div class="info-box">
+      <p><strong>Don't see your tool?</strong> If it exports to CSV or Excel with columns for software name, device name, and username, SAIP can read it. Column mapping is fully manual so any format works.</p>
+    </div>
 
     <h3>Duplicate device detection</h3>
     <p>SAIP automatically detects when the same device appears under different name formats — for example <code>PC-CORP-001</code>, <code>pc-corp-001</code>, and <code>PC-Corp-001</code>. These are flagged on the Sources page. Click Preview Affected Rows to see the exact license impact before merging.</p>
@@ -381,7 +412,7 @@ footer a { color: var(--gray-2); margin: 0 10px; }
           <span class="faq-arrow">▼</span>
         </button>
         <div class="faq-a">
-          Yes — you can import from MECM, Intune, and Tanium in the same project. SAIP combines all sources and automatically deduplicates records where the same software appears on the same device from multiple tools. You get one unified license position, not inflated counts.
+          Yes — you can import from MECM, Intune, Tanium, Lansweeper, ServiceNow, and any other tool in the same project. SAIP combines all sources and automatically deduplicates records where the same software appears on the same device from multiple tools. You get one unified license position, not inflated counts.
         </div>
       </div>
       <div class="faq-item">
