@@ -59,9 +59,9 @@ a { text-decoration: none; color: inherit; }
 .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: color 0.15s; }
 .nav-links a:hover { color: var(--white); }
 .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.btn { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font); font-size: 0.82rem; font-weight: 600; padding: 9px 20px; border-radius: 6px; transition: all 0.15s; cursor: pointer; border: none; white-space: nowrap; }
+.btn { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font); font-size: 0.82rem; font-weight: 600; padding: 9px 20px; border-radius: 6px; transition: all 0.2s ease; cursor: pointer; border: none; white-space: nowrap; }
 .btn-ghost { background: transparent; color: var(--gray-1); border: 1px solid var(--gray-4); }
-.btn-ghost:hover { border-color: var(--gray-3); color: var(--white); }
+.btn-ghost:hover { border-color: var(--gray-3); color: var(--white); background: rgba(255,255,255,0.05); }
 .btn-solid { background: var(--blue); color: #fff; }
 .btn-solid:hover { background: var(--blue-lt); }
 .btn-lg { padding: 13px 28px; font-size: 0.88rem; border-radius: 7px; }
@@ -176,8 +176,9 @@ h2 em { font-style: normal; color: var(--blue-lt); }
 .p-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.78rem; color: var(--gray-2); padding: 6px 0; }
 .p-feats li strong { color: var(--white); font-weight: 500; }
 .chk { width: 15px; height: 15px; border-radius: 50%; background: rgba(5,150,105,0.14); border: 1px solid rgba(52,211,153,0.2); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; color: var(--green-lt); }
-.p-card-enterprise .btn { border-color: #7c3aed !important; color: #7c3aed !important; }
+.p-card-enterprise .btn { border-color: #7c3aed !important; color: #7c3aed !important; background: transparent !important; }
 .p-card-enterprise .btn:hover { background: #7c3aed !important; color: #fff !important; }
+.p-card-consultant .btn:hover { background: #0891b2 !important; color: #fff !important; border-color: #0891b2 !important; }
 
 /* PORTAL */
 .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
@@ -480,7 +481,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       </div>
 
       <!-- CONSULTANT -->
-      <div class="p-card" style="border-color:var(--cyan);background:linear-gradient(160deg, rgba(6,182,212,0.07) 0%, var(--navy-2) 60%);">
+      <div class="p-card p-card-consultant" style="border-color:var(--cyan);background:linear-gradient(160deg, rgba(6,182,212,0.07) 0%, var(--navy-2) 60%);">
         <div class="p-tier" style="color:var(--cyan)">Consultant</div>
         <div class="p-name">SAIP Consultant</div>
         <div class="p-desc">For SAM Consultants & MSPs</div>
@@ -499,7 +500,7 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
       </div>
 
       <!-- ENTERPRISE -->
-      <div class="p-card p-card-enterprise" style="border-color:#7c3aed;background:linear-gradient(160deg, rgba(124,58,237,0.09) 0%, var(--navy-2) 60%);">
+      <div class="p-card p-card-enterprise" style="border-color:#7c3aed;">
         <div class="p-tier" style="color:#7c3aed">Enterprise</div>
         <div class="p-name">SAIP Enterprise</div>
         <div class="p-desc">For large organizations and regulated environments. Full platform with SLA, dedicated support, and intelligence included.</div>
