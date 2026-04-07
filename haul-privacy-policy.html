@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Haul: Mileage & Sales</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 680px; margin: 0 auto; padding: 40px 24px; color: #1a1a1a; line-height: 1.7; }
+  h1 { color: #0d7a4e; font-size: 28px; margin-bottom: 4px; }
+  h2 { color: #0d7a4e; font-size: 18px; margin-top: 36px; }
+  p, li { font-size: 16px; color: #444; }
+  .updated { color: #888; font-size: 14px; margin-bottom: 32px; }
+  .highlight { background: #edfbf4; border-left: 3px solid #1aff8c; padding: 12px 16px; border-radius: 4px; margin: 24px 0; }
+  a { color: #0d7a4e; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="updated">Last updated: April 7, 2026</p>
+
+<div class="highlight">
+  <strong>The short version:</strong> Haul collects your location to track business miles and find nearby sales. Your data stays on your device. We never sell your data. Ever.
+</div>
+
+<h2>Who we are</h2>
+<p>Haul: Mileage & Sales is a mobile application built for resellers and self-employed workers to find yard sales, track business mileage, scan receipts, and look up resale prices. It is developed and maintained by DataForge Systems LLC.</p>
+
+<h2>What we collect</h2>
+<p>Here is the complete list of data Haul collects:</p>
+<ul>
+  <li><strong>Location data</strong> — Haul uses your device's GPS to detect drives, calculate mileage, and find yard sales near you. With your permission, location is accessed in the background so trips are detected automatically while you drive. Your location data is stored locally on your device and is never sold or shared with third parties.</li>
+  <li><strong>Trip and expense records</strong> — Trips, expenses, and receipt data you log are stored locally on your device using Apple's SwiftData framework. This data never leaves your device unless you explicitly export it.</li>
+  <li><strong>Yard sale submissions</strong> — If you submit a yard sale listing, the sale details (title, address, date, time, description, photos) are stored in our Supabase database so other Haul users can see it on the map. Submissions are associated with an anonymous user ID, not your name or any personal information.</li>
+  <li><strong>Anonymous user ID</strong> — Haul creates an anonymous identifier for your account so you can submit and verify sales. This ID is not linked to your name, email, Apple ID, or any other personal information.</li>
+  <li><strong>Subscription status</strong> — Whether you are a free or Pro user, managed through Apple's App Store.</li>
+</ul>
+
+<h2>What we do NOT collect</h2>
+<ul>
+  <li>We do not collect your name, email address, or any account information</li>
+  <li>We do not require you to create an account</li>
+  <li>We do not use advertising SDKs or tracking tools</li>
+  <li>We do not sell your data to anyone, ever</li>
+  <li>We do not share your location with third parties</li>
+  <li>We do not store your trip or expense data on any server</li>
+  <li>We do not access your contacts, calendar, or any data outside the app</li>
+</ul>
+
+<h2>How photos and image scanning works</h2>
+<p>When you use the Scan Sale Info or Flip Check features, your photo is sent securely over HTTPS to our Supabase Edge Function, which forwards it to Anthropic's Claude AI API for processing. The result is returned to your device and displayed. The image is not stored by Haul or on any server we control.</p>
+<p>When you scan a receipt, the image is processed locally on your device using Apple's Vision framework. Receipt photos you choose to save are stored locally on your device only.</p>
+<p>Anthropic processes images solely to generate the requested response. Their data handling is governed by the <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a>.</p>
+
+<h2>Location data and background tracking</h2>
+<p>Haul requests "Always On" location permission so it can detect trips automatically in the background while you drive. This is the core feature of the app — without it, you would need to manually start and stop every trip.</p>
+<p>Your location data is used exclusively to:</p>
+<ul>
+  <li>Detect when you start and stop driving</li>
+  <li>Calculate the distance of your trips</li>
+  <li>Find yard sales and other listings near you</li>
+  <li>Reverse geocode your start and end addresses</li>
+</ul>
+<p>Your location history is stored locally on your device and is never uploaded to any server, sold, or shared.</p>
+<p>You can revoke location permission at any time in your iPhone Settings. The app will still work for manual trip logging and sale browsing, but automatic trip detection will be disabled.</p>
+
+<h2>Community sale listings</h2>
+<p>Haul includes a crowdsourced map of yard sales submitted by users. When you submit a sale, the listing details are stored in our database (hosted by Supabase) and are visible to all Haul users. Sale submissions are associated with an anonymous ID only — your name and personal information are never attached to a listing.</p>
+<p>You can request deletion of any sale you submitted by contacting us at the email below.</p>
+
+<h2>In-app purchases</h2>
+<p>Subscriptions are processed entirely by Apple through the App Store. We never see or store your payment information. All billing is managed through your Apple ID.</p>
+
+<h2>Third-party services</h2>
+<ul>
+  <li><strong>Supabase</strong> — hosts our community sale listings database. <a href="https://supabase.com/privacy">Supabase Privacy Policy</a></li>
+  <li><strong>Anthropic</strong> — processes images for the Scan Sale Info and Flip Check features. <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a></li>
+  <li><strong>eBay</strong> — provides sold listing data for the Flip Check feature. <a href="https://www.ebay.com/help/policies/member-behaviour-policies/user-privacy-notice-privacy-policy">eBay Privacy Policy</a></li>
+  <li><strong>Apple Maps</strong> — used for route planning and geocoding. <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li>
+</ul>
+
+<h2>Data retention and deletion</h2>
+<p>All trip, expense, and receipt data is stored locally on your device. Deleting the app permanently deletes all of this data.</p>
+<p>Anonymous user IDs and any sale listings you submitted to our community database can be deleted by contacting us at the email address below.</p>
+
+<h2>Children's privacy</h2>
+<p>Haul is not directed at children under 13. We do not knowingly collect any information from children.</p>
+
+<h2>Changes to this policy</h2>
+<p>If we make material changes to this privacy policy we will update the date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+
+<h2>Contact us</h2>
+<p>If you have any questions about this privacy policy or want to request deletion of your data, contact us at: <a href="mailto:kaleb@dataforgesystems.io">kaleb@dataforgesystems.io</a></p>
+
+<p style="margin-top: 48px; color: #aaa; font-size: 13px;">DataForge Systems LLC</p>
+
+</body>
+</html>
