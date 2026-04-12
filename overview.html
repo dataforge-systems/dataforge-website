@@ -41,6 +41,13 @@ body { font-family: var(--font); background: var(--navy); color: var(--white); l
 .nav-links { display:flex; gap:20px; font-size:0.875rem; color:var(--gray-2); }
 .nav-links a { color:var(--gray-2); text-decoration:none; }
 .nav-links a:hover { color:var(--white); }
+.nav-dropdown { position: relative; }
+.nav-dropdown > a::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--gray-2); margin-left: 5px; vertical-align: middle; transition: transform 0.2s; }
+.nav-dropdown:hover > a::after { border-top-color: var(--white); transform: rotate(180deg); }
+.nav-dropdown-menu { position: absolute; top: calc(100% + 12px); left: -12px; background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 8px; padding: 6px 0; min-width: 150px; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: all 0.15s ease; box-shadow: 0 12px 32px rgba(0,0,0,0.5); z-index: 300; }
+.nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dropdown-menu a { display: block; padding: 8px 18px; font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: all 0.15s; white-space: nowrap; }
+.nav-dropdown-menu a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
 
 /* HEADER */
 .header { text-align:center; margin-bottom:48px; }
@@ -100,6 +107,13 @@ body { font-family: var(--font); background: var(--navy); color: var(--white); l
 <nav class="nav">
   <a href="/" class="nav-logo"><span>Data</span>Forge Systems</a>
   <div class="nav-links">
+    <div class="nav-dropdown">
+      <a href="#">Products</a>
+      <div class="nav-dropdown-menu">
+        <a href="/">SAIP</a>
+        <a href="haul.html">Haul</a>
+      </div>
+    </div>
     <a href="/">Home</a>
     <a href="/#pricing">Pricing</a>
     <a href="/help">Help</a>

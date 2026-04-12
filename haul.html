@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haul: Mileage & Sales — Find. Flip. Track. Profit.</title>
+<meta name="description" content="The all-in-one iOS app for resellers. Find yard sales, scan items for eBay prices, list directly to eBay, track mileage for taxes, and calculate your profit — all from your phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: #1e1e1e;
+  --border-accent: #00E676;
+  --accent: #00E676;
+  --accent-dim: rgba(0, 230, 118, 0.15);
+  --accent-glow: rgba(0, 230, 118, 0.3);
+  --text: #f0f0f0;
+  --text-dim: #888;
+  --text-muted: #555;
+  --danger: #ff5252;
+  --font: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav .brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text);
+  font-weight: 700; font-size: 1.1rem;
+}
+nav .brand .logo-h {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.2rem; color: #0a0a0a;
+}
+nav .nav-links { display: flex; gap: 2rem; align-items: center; }
+nav .nav-links a {
+  color: var(--text-dim); text-decoration: none;
+  font-size: 0.9rem; font-weight: 500;
+  transition: color 0.2s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+nav .cta-btn {
+  background: var(--accent); color: #0a0a0a;
+  padding: 8px 20px; border-radius: 8px;
+  font-weight: 600; font-size: 0.85rem;
+  text-decoration: none; transition: all 0.2s;
+}
+nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-1px); }
+
+/* Hero */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 2rem 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center;
+}
+.hero-text h1 {
+  font-size: 3.5rem; font-weight: 700; line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.hero-text h1 em {
+  font-style: italic; color: var(--accent);
+}
+.hero-text .subtitle {
+  font-size: 1.2rem; color: var(--text-dim);
+  line-height: 1.7; margin-bottom: 2rem; max-width: 500px;
+}
+.hero-badges {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+}
+.hero-badges .badge {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 0.85rem; color: var(--text-dim);
+}
+.hero-badges .badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--accent); color: #0a0a0a;
+  padding: 14px 32px; border-radius: 12px;
+  font-weight: 700; font-size: 1rem;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: all 0.3s; border: none; cursor: pointer;
+}
+.btn-primary:hover { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-2px); }
+.btn-secondary {
+  background: transparent; color: var(--text);
+  padding: 14px 32px; border-radius: 12px;
+  font-weight: 600; font-size: 1rem;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); transition: all 0.3s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Phone mockup */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.phone-frame {
+  width: 280px; height: 580px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  border: 3px solid #333;
+  padding: 12px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px var(--accent-dim);
+}
+.phone-notch {
+  width: 120px; height: 28px;
+  background: #0a0a0a; border-radius: 0 0 16px 16px;
+  margin: 0 auto 12px; position: relative; z-index: 2;
+}
+.phone-screen {
+  width: 100%; height: calc(100% - 40px);
+  background: var(--bg);
+  border-radius: 28px;
+  overflow: hidden; padding: 16px;
+}
+.phone-screen .app-header {
+  text-align: center; margin-bottom: 16px;
+}
+.phone-screen .app-header h3 {
+  font-size: 0.75rem; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+.phone-screen .scan-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px; margin-bottom: 10px;
+}
+.phone-screen .scan-card .item-name {
+  font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;
+}
+.phone-screen .scan-card .price {
+  font-family: var(--mono); font-size: 1.4rem;
+  color: var(--accent); font-weight: 700;
+}
+.phone-screen .scan-card .price-label {
+  font-size: 0.65rem; color: var(--text-dim);
+}
+.phone-screen .scan-card .comps {
+  font-size: 0.65rem; color: var(--text-muted); margin-top: 6px;
+}
+.phone-screen .action-btn {
+  width: 100%; padding: 10px;
+  background: var(--accent); color: #0a0a0a;
+  border: none; border-radius: 10px;
+  font-weight: 700; font-size: 0.75rem;
+  margin-top: 6px; cursor: default;
+  font-family: var(--font);
+}
+.phone-screen .action-btn.secondary {
+  background: transparent; color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.phone-screen .flow-hint {
+  text-align: center; font-size: 0.6rem;
+  color: var(--text-muted); margin-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* Pipeline section */
+.pipeline {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.pipeline h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.pipeline h2 em { color: var(--accent); font-style: italic; }
+.pipeline .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 4rem; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.pipeline-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-radius: 16px; overflow: hidden;
+}
+.pipeline-step {
+  background: var(--bg-card); padding: 2rem;
+  text-align: center; transition: background 0.3s;
+  position: relative;
+}
+.pipeline-step:hover { background: var(--bg-card-hover); }
+.pipeline-step .step-num {
+  font-family: var(--mono); font-size: 0.75rem;
+  color: var(--accent); margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+.pipeline-step .step-icon {
+  font-size: 2rem; margin-bottom: 1rem;
+}
+.pipeline-step h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.pipeline-step p {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;
+}
+
+/* Features */
+.features {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.features h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.features h2 em { color: var(--accent); font-style: italic; }
+.features .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 4rem; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.feature-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border); border-radius: 16px; overflow: hidden;
+}
+.feature-card {
+  background: var(--bg-card); padding: 2rem;
+  transition: background 0.3s;
+}
+.feature-card:hover { background: var(--bg-card-hover); }
+.feature-card .feat-icon {
+  font-size: 1.5rem; margin-bottom: 1rem;
+  width: 48px; height: 48px;
+  background: var(--accent-dim); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.feature-card h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.feature-card p {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;
+}
+
+/* Comparison */
+.comparison {
+  padding: 100px 2rem;
+  max-width: 900px; margin: 0 auto;
+}
+.comparison h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.comparison h2 em { color: var(--accent); font-style: italic; }
+.comparison .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 3rem;
+}
+.comp-table {
+  width: 100%; border-collapse: separate;
+  border-spacing: 0; border-radius: 16px;
+  overflow: hidden; border: 1px solid var(--border);
+}
+.comp-table thead th {
+  background: var(--bg-card); padding: 16px 20px;
+  text-align: left; font-weight: 600; font-size: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.comp-table thead th:first-child { color: var(--text-dim); }
+.comp-table thead th.haul-col {
+  color: var(--accent); text-align: center;
+}
+.comp-table thead th.other-col {
+  color: var(--text-dim); text-align: center;
+}
+.comp-table tbody td {
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.comp-table tbody td:first-child { color: var(--text-dim); }
+.comp-table tbody td.check { text-align: center; color: var(--accent); font-size: 1.1rem; }
+.comp-table tbody td.x { text-align: center; color: var(--text-muted); font-size: 1.1rem; }
+.comp-table tbody tr { background: var(--bg); transition: background 0.2s; }
+.comp-table tbody tr:hover { background: var(--bg-card); }
+
+/* Pricing */
+.pricing {
+  padding: 100px 2rem;
+  max-width: 800px; margin: 0 auto;
+  text-align: center;
+}
+.pricing h2 {
+  font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;
+}
+.pricing h2 em { color: var(--accent); font-style: italic; }
+.pricing .section-sub {
+  color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;
+}
+.pricing-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 3rem;
+  text-align: center; position: relative;
+  max-width: 480px; margin: 0 auto;
+}
+.pricing-card .plan-name {
+  font-size: 0.85rem; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.pricing-card .price-row {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 4px; margin-bottom: 0.5rem;
+}
+.pricing-card .price {
+  font-family: var(--mono); font-size: 3rem; font-weight: 700;
+}
+.pricing-card .period { color: var(--text-dim); font-size: 1rem; }
+.pricing-card .price-alt {
+  color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2rem;
+}
+.pricing-card .perks {
+  list-style: none; text-align: left; margin-bottom: 2rem;
+}
+.pricing-card .perks li {
+  padding: 8px 0; font-size: 0.9rem; color: var(--text-dim);
+  display: flex; align-items: center; gap: 10px;
+}
+.pricing-card .perks li .perk-check { color: var(--accent); font-weight: 700; }
+.pricing-card .trial-note {
+  font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+  padding: 60px 2rem;
+  border-top: 1px solid var(--border);
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+.footer-brand .logo-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1rem;
+}
+.footer-brand .logo-row .logo-h {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: #0a0a0a; font-size: 1rem;
+}
+.footer-brand .logo-row span { font-weight: 700; font-size: 1rem; }
+.footer-brand p { color: var(--text-dim); font-size: 0.85rem; max-width: 300px; line-height: 1.6; }
+.footer-col h4 {
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.footer-col a {
+  display: block; color: var(--text-muted);
+  text-decoration: none; font-size: 0.85rem;
+  padding: 4px 0; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  color: var(--text-muted); font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-text h1 { font-size: 2.5rem; }
+  .hero-text .subtitle { margin: 0 auto 2rem; }
+  .hero-badges { justify-content: center; }
+  .hero-actions { justify-content: center; }
+  .hero-visual { margin-top: 3rem; }
+  .pipeline-steps { grid-template-columns: repeat(2, 1fr); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  nav .nav-links { display: none; }
+  .comp-table { font-size: 0.8rem; }
+}
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: 2rem; }
+  .pipeline-steps { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .pricing-card { padding: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="brand">
+    <div class="logo-h">H</div>
+    Haul
+  </a>
+  <div class="nav-links">
+    <a href="#pipeline">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#compare">Compare</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://dataforgesystems.io">DataForge Systems</a>
+    <a href="#" class="cta-btn">Download on iOS</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Find. Flip. Track.<br><em>Profit.</em></h1>
+      <p class="subtitle">
+        The all-in-one iOS app for resellers. Find yard sales on a live map, scan items for instant eBay prices, list directly to eBay, track every mile for taxes, and see your real profit — all from your phone.
+      </p>
+      <div class="hero-badges">
+        <div class="badge"><div class="dot"></div> Live yard sale map</div>
+        <div class="badge"><div class="dot"></div> Direct eBay listing</div>
+        <div class="badge"><div class="dot"></div> GPS mileage tracking</div>
+        <div class="badge"><div class="dot"></div> IRS-ready reports</div>
+      </div>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download for iOS
+        </a>
+        <a href="#pipeline" class="btn-secondary">See how it works →</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="app-header">
+            <h3>Flip Check</h3>
+          </div>
+          <div class="scan-card">
+            <div class="item-name">Razer DeathAdder Gaming Mouse</div>
+            <div class="price">$34.99</div>
+            <div class="price-label">Avg Sold Price</div>
+            <div class="comps">Based on 12 recent eBay sales</div>
+          </div>
+          <button class="action-btn">Add & List on eBay</button>
+          <button class="action-btn secondary" style="margin-top: 6px;">Add to Inventory</button>
+          <div class="flow-hint">SCAN → INVENTORY → LIST → SELL</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline -->
+<section class="pipeline" id="pipeline">
+  <h2>From yard sale to <em>eBay listing</em> in 60 seconds</h2>
+  <p class="section-sub">No other app does the entire reseller workflow. Haul replaces five apps with one.</p>
+
+  <div class="pipeline-steps">
+    <div class="pipeline-step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📍</div>
+      <h3>Find Sales</h3>
+      <p>Discover yard sales, estate sales, and garage sales on a live community-powered map. Build a route and hit every sale efficiently.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">02</div>
+      <div class="step-icon">📸</div>
+      <h3>Scan & Price</h3>
+      <p>Point your camera at any item. AI identifies it and pulls real eBay sold prices instantly. Know if it's worth buying before you spend a dime.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">03</div>
+      <div class="step-icon">🏷️</div>
+      <h3>List to eBay</h3>
+      <p>AI writes your title, description, and fills item specifics. Pick a category, set your price, and post directly to eBay — all from your phone.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">04</div>
+      <div class="step-icon">💰</div>
+      <h3>Track Profit</h3>
+      <p>Automatic GPS mileage tracking for IRS deductions. eBay fees calculated. Purchase costs tracked. See your real profit per item and total P&L.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <h2>Everything a reseller <em>actually needs</em></h2>
+  <p class="section-sub">Built by someone who understands the hustle. Every feature exists because real resellers need it.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feat-icon">🗺️</div>
+      <h3>Live Sale Map</h3>
+      <p>Community-powered yard sale finder with address, dates, photos, and descriptions. Filter by type, distance, and date.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🛣️</div>
+      <h3>Route Optimizer</h3>
+      <p>Hit multiple sales in the most efficient order. Build your route, start driving, and let Haul navigate you through every stop.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📷</div>
+      <h3>Flip Check</h3>
+      <p>AI-powered item identification with real eBay sold prices. See what items actually sell for — not just what people are asking.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📦</div>
+      <h3>Inventory Management</h3>
+      <p>Track every item you buy with photos, purchase price, condition, and status. See your entire inventory at a glance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🛒</div>
+      <h3>Direct eBay Listing</h3>
+      <p>AI writes optimized listings. Post directly to eBay with photos, item specifics, and shipping — without leaving the app.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">⚡</div>
+      <h3>Batch Listing</h3>
+      <p>Scan 10 items at a yard sale and list them all to eBay at once. Review, edit, and post in a single batch.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🚗</div>
+      <h3>Auto Mileage Tracking</h3>
+      <p>GPS detects your drives automatically. Classify as business or personal. Calculate IRS deductions at the standard mileage rate.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🧾</div>
+      <h3>Receipt Scanner</h3>
+      <p>Snap a photo of any receipt. OCR extracts the total automatically. Track every business expense for tax season.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📊</div>
+      <h3>Tax Reports</h3>
+      <p>IRS-ready mileage logs, expense reports, and profit & loss statements. Export as CSV or PDF. Everything your accountant needs.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🔄</div>
+      <h3>Auto-Relist</h3>
+      <p>Set items to automatically relist after 7, 14, or 30 days. Keep your listings fresh without lifting a finger.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📉</div>
+      <h3>Auto Price Drop</h3>
+      <p>Automatically lower prices on stale listings. Set your floor so items never go below your minimum. Sell faster.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">✅</div>
+      <h3>Sold Tracking</h3>
+      <p>Haul detects when your eBay items sell and calculates your profit after eBay fees, shipping, and purchase cost automatically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="comparison" id="compare">
+  <h2>One app. <em>Not five.</em></h2>
+  <p class="section-sub">See how Haul compares to using separate apps for each part of your business.</p>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th class="haul-col">Haul</th>
+        <th class="other-col">MileIQ</th>
+        <th class="other-col">Spadeberry</th>
+        <th class="other-col">Yard Sale Treasure Map</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Yard sale finder map</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td></tr>
+      <tr><td>Route optimization</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>AI item scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>eBay price lookup</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Direct eBay listing</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Batch listing</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>AI listing generator</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Inventory management</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>GPS mileage tracking</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Receipt scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Tax reports (CSV/PDF)</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Auto-relist & price drop</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Profit tracking with eBay fees</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <h2>Simple pricing. <em>Unlimited everything.</em></h2>
+  <p class="section-sub">No per-listing fees. No token system. One price, unlimited scans, listings, and tracking.</p>
+
+  <div class="pricing-card">
+    <div class="plan-name">Haul Pro</div>
+    <div class="price-row">
+      <span class="price">$19.99</span>
+      <span class="period">/month</span>
+    </div>
+    <div class="price-alt">or $179.99/year (save 25%)</div>
+    <ul class="perks">
+      <li><span class="perk-check">✓</span> Unlimited Flip Check scans</li>
+      <li><span class="perk-check">✓</span> Unlimited eBay listings</li>
+      <li><span class="perk-check">✓</span> AI listing generator</li>
+      <li><span class="perk-check">✓</span> Batch listing (up to 20 items)</li>
+      <li><span class="perk-check">✓</span> Auto-relist & auto price drop</li>
+      <li><span class="perk-check">✓</span> GPS mileage auto-tracking</li>
+      <li><span class="perk-check">✓</span> Receipt scanning</li>
+      <li><span class="perk-check">✓</span> Profit & loss reports</li>
+      <li><span class="perk-check">✓</span> CSV & PDF tax exports</li>
+      <li><span class="perk-check">✓</span> Yard sale finder & route optimizer</li>
+    </ul>
+    <a href="#" class="btn-primary" style="width:100%; justify-content: center;">Start 14-Day Free Trial</a>
+    <p class="trial-note">No credit card required. Cancel anytime.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-row">
+        <div class="logo-h">H</div>
+        <span>Haul</span>
+      </div>
+      <p>Built by DataForge Systems LLC. The all-in-one iOS app for resellers who want to find, flip, track, and profit — without juggling five different apps.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#pipeline">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="https://dataforgesystems.io/haul-privacy-policy.html">Privacy Policy</a>
+      <a href="https://dataforgesystems.io/haul-support.html">Support</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="https://dataforgesystems.io">DataForge Systems</a>
+      <a href="mailto:support@dataforgesystems.io">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DataForge Systems LLC. All rights reserved.</span>
+    <span>Made in Athens, Alabama</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -58,6 +58,14 @@ a { text-decoration: none; color: inherit; }
 .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; flex: 1; }
 .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: color 0.15s; }
 .nav-links a:hover { color: var(--white); }
+.nav-dropdown { position: relative; }
+.nav-dropdown > a { cursor: default; }
+.nav-dropdown > a::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--gray-2); margin-left: 5px; vertical-align: middle; transition: transform 0.2s; }
+.nav-dropdown:hover > a::after { border-top-color: var(--white); transform: rotate(180deg); }
+.nav-dropdown-menu { position: absolute; top: calc(100% + 12px); left: -12px; background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 8px; padding: 6px 0; min-width: 150px; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: all 0.15s ease; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+.nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dropdown-menu a { display: block; padding: 8px 18px; font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: all 0.15s; white-space: nowrap; }
+.nav-dropdown-menu a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
 .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .btn { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font); font-size: 0.82rem; font-weight: 600; padding: 9px 20px; border-radius: 6px; transition: all 0.2s ease; cursor: pointer; border: none; white-space: nowrap; }
 .btn-ghost { background: transparent; color: var(--gray-1); border: 1px solid var(--gray-4); }
@@ -247,6 +255,13 @@ footer { padding: 40px 48px; border-top: 1px solid var(--line); }
     </a>
     <div class="nav-divider"></div>
     <ul class="nav-links">
+      <li class="nav-dropdown">
+        <a href="#">Products</a>
+        <div class="nav-dropdown-menu">
+          <a href="/">SAIP</a>
+          <a href="haul.html">Haul</a>
+        </div>
+      </li>
       <li><a href="#how">How it works</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#pricing">Pricing</a></li>
