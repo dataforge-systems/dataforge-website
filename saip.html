@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataForge Systems — SAIP | Software Asset Intelligence Platform</title>
+<meta name="description" content="SAIP normalizes messy software inventory data into trusted, auditable license position reports. Built for enterprise SAM teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --navy:     #060d1a;
+  --navy-2:   #091222;
+  --navy-3:   #0c1a30;
+  --navy-4:   #0f2040;
+  --blue:     #1a56db;
+  --blue-2:   #1e429f;
+  --blue-lt:  #3f83f8;
+  --cyan:     #06b6d4;
+  --white:    #f8fafc;
+  --gray-1:   #e2e8f0;
+  --gray-2:   #94a3b8;
+  --gray-3:   #475569;
+  --gray-4:   #1e2d45;
+  --green:    #059669;
+  --green-lt: #34d399;
+  --line:     rgba(255,255,255,0.07);
+  --font:     'Inter', -apple-system, sans-serif;
+  --display:  'Sora', sans-serif;
+}
+
+body { font-family: var(--font); background: var(--navy); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gray-4); }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 72px; display: flex; align-items: center;
+  border-bottom: 1px solid var(--line);
+  background: rgba(6,13,26,0.92);
+  backdrop-filter: blur(16px);
+}
+.nav-inner {
+  width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  display: flex; align-items: center; gap: 40px;
+}
+.logo { display: flex; align-items: center; gap: 0px; flex-shrink: 0; }
+.logo-mark { width: 36px; height: 36px; }
+.logo-company { font-family: var(--display); font-size: 0.9rem; font-weight: 700; color: var(--white); letter-spacing: -0.01em; display: block; line-height: 1.2; }
+.logo-product { font-size: 0.62rem; font-weight: 500; color: var(--gray-3); letter-spacing: 0.05em; display: block; line-height: 1; }
+.nav-divider { width: 1px; height: 24px; background: var(--line); flex-shrink: 0; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; flex: 1; }
+.nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: color 0.15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-dropdown { position: relative; }
+.nav-dropdown > a { cursor: default; }
+.nav-dropdown > a::after { content: ''; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--gray-2); margin-left: 5px; vertical-align: middle; transition: transform 0.2s; }
+.nav-dropdown:hover > a::after { border-top-color: var(--white); transform: rotate(180deg); }
+.nav-dropdown-menu { position: absolute; top: calc(100% + 12px); left: -12px; background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 8px; padding: 6px 0; min-width: 150px; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: all 0.15s ease; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+.nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-dropdown-menu a { display: block; padding: 8px 18px; font-size: 0.82rem; font-weight: 500; color: var(--gray-2); transition: all 0.15s; white-space: nowrap; }
+.nav-dropdown-menu a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.btn { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font); font-size: 0.82rem; font-weight: 600; padding: 9px 20px; border-radius: 6px; transition: all 0.2s ease; cursor: pointer; border: none; white-space: nowrap; }
+.btn-ghost { background: transparent; color: var(--gray-1); border: 1px solid var(--gray-4); }
+.btn-ghost:hover { border-color: var(--gray-3); color: var(--white); background: rgba(255,255,255,0.05); }
+.btn-solid { background: var(--blue); color: #fff; }
+.btn-solid:hover { background: var(--blue-lt); }
+.btn-lg { padding: 13px 28px; font-size: 0.88rem; border-radius: 7px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 48px 80px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 75% 35%, rgba(26,86,219,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(6,182,212,0.06) 0%, transparent 50%);
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 75%);
+}
+.hero-inner { max-width: 1280px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+.hero-label { display: inline-flex; align-items: center; gap: 8px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 24px; }
+.hero-label-line { width: 20px; height: 1px; background: var(--cyan); }
+.hero h1 { font-family: var(--display); font-size: clamp(2.2rem, 3.8vw, 3.4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--white); margin-bottom: 22px; }
+.hero h1 em { font-style: normal; color: var(--blue-lt); }
+.hero-body { font-size: 1rem; color: var(--gray-2); font-weight: 400; line-height: 1.75; margin-bottom: 36px; max-width: 460px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 52px; }
+.hero-proof { display: flex; gap: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+.proof-item { display: flex; flex-direction: column; gap: 3px; }
+.proof-val { font-family: var(--display); font-size: 1.4rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; line-height: 1; }
+.proof-label { font-size: 0.68rem; color: var(--gray-3); font-weight: 500; letter-spacing: 0.04em; }
+
+/* MOCKUP */
+.mockup { background: var(--navy-3); border: 1px solid var(--gray-4); border-radius: 12px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04); }
+.mockup-bar { background: var(--navy-2); border-bottom: 1px solid var(--line); padding: 11px 16px; display: flex; align-items: center; gap: 12px; }
+.dots { display: flex; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.dot-r { background: #ff5f57; } .dot-y { background: #febc2e; } .dot-g { background: #28c840; }
+.mockup-title-bar { font-size: 0.68rem; color: var(--gray-3); font-weight: 500; flex: 1; text-align: center; }
+.mockup-body { padding: 18px; }
+.mockup-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
+.ms { background: var(--navy-2); border: 1px solid var(--line); border-radius: 7px; padding: 10px; text-align: center; }
+.ms-val { font-family: var(--display); font-size: 1.3rem; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+.ms-val.blue { color: var(--blue-lt); } .ms-val.green { color: var(--green-lt); } .ms-val.amber { color: #fbbf24; } .ms-val.gray { color: var(--gray-2); }
+.ms-lbl { font-size: 0.58rem; color: var(--gray-3); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.mt { width: 100%; border-collapse: collapse; }
+.mt thead tr { border-bottom: 1px solid var(--line); }
+.mt th { font-size: 0.58rem; font-weight: 600; color: var(--gray-3); letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 8px; text-align: left; }
+.mt td { font-size: 0.68rem; color: var(--gray-1); padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); white-space: nowrap; }
+.mt tr:last-child td { border-bottom: none; }
+.t { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 4px; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.03em; }
+.t-g { background: rgba(5,150,105,0.14); color: var(--green-lt); }
+.t-b { background: rgba(26,86,219,0.18); color: #93c5fd; }
+.t-a { background: rgba(251,191,36,0.12); color: #fbbf24; }
+.t-gr { background: rgba(148,163,184,0.1); color: var(--gray-2); }
+.t-p { background: rgba(139,92,246,0.14); color: #c4b5fd; }
+
+/* SECTION */
+.section { padding: 96px 48px; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 60px; }
+.section-header.center { grid-template-columns: 1fr; text-align: center; max-width: 660px; margin: 0 auto 60px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 14px; }
+.eyebrow-line { width: 18px; height: 1px; background: var(--cyan); }
+h2 { font-family: var(--display); font-size: clamp(1.7rem, 2.8vw, 2.5rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.025em; color: var(--white); }
+h2 em { font-style: normal; color: var(--blue-lt); }
+.section-desc { font-size: 0.95rem; color: var(--gray-2); line-height: 1.75; font-weight: 400; }
+.alt-bg { background: var(--navy-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+/* TRANSFORM */
+.transform-grid { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0; align-items: center; }
+.t-col { background: var(--navy-3); border: 1px solid var(--gray-4); border-radius: 10px; overflow: hidden; }
+.t-col-hdr { padding: 12px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.t-col-dot { width: 8px; height: 8px; border-radius: 50%; }
+.t-col-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.t-rows { padding: 12px 0; }
+.t-row { padding: 7px 18px; font-size: 0.75rem; font-family: 'Courier New', monospace; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.t-row:last-child { border-bottom: none; }
+.t-arrow { display: flex; align-items: center; justify-content: center; }
+.arrow-c { width: 44px; height: 44px; border-radius: 50%; background: var(--navy-3); border: 1px solid var(--gray-4); display: flex; align-items: center; justify-content: center; color: var(--blue-lt); font-size: 1.1rem; }
+
+/* FEATURES GRID */
+.feats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.feat { background: var(--navy); padding: 32px; transition: background 0.2s; }
+.feat:hover { background: var(--navy-3); }
+.feat-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--navy-3); border: 1px solid var(--gray-4); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 16px; }
+.feat-title { font-family: var(--display); font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 9px; letter-spacing: -0.01em; }
+.feat-body { font-size: 0.79rem; color: var(--gray-2); line-height: 1.65; }
+
+/* HOW IT WORKS */
+.steps { display: grid; grid-template-columns: repeat(5,1fr); position: relative; }
+.steps::before { content: ''; position: absolute; top: 27px; left: calc(10% + 8px); right: calc(10% + 8px); height: 1px; background: var(--gray-4); }
+.step { padding: 0 16px; text-align: center; position: relative; z-index: 1; }
+.step-num { width: 54px; height: 54px; border-radius: 50%; background: var(--navy-3); border: 1px solid var(--gray-4); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 0.7rem; font-weight: 700; color: var(--blue-lt); letter-spacing: 0.04em; font-family: var(--display); }
+.step-title { font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 8px; font-family: var(--display); }
+.step-body { font-size: 0.74rem; color: var(--gray-2); line-height: 1.55; }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 860px; margin: 0 auto; }
+.p-card { background: var(--navy-2); border: 1px solid var(--gray-4); border-radius: 12px; padding: 36px; display: flex; flex-direction: column; position: relative; height: 100%; }
+.p-card.featured { border-color: var(--blue); background: linear-gradient(160deg, rgba(26,86,219,0.09) 0%, var(--navy-2) 60%); }
+.p-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 0 0 7px 7px; white-space: nowrap; }
+.p-tier { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-lt); margin-bottom: 8px; min-height: 20px; }
+.p-name { font-family: var(--display); font-size: 1.25rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 8px; min-height: 30px; }
+.p-desc { font-size: 0.78rem; color: var(--gray-2); line-height: 1.6; margin-bottom: 24px; min-height: 76px; }
+.p-price { font-family: var(--display); font-size: 2.8rem; font-weight: 800; color: var(--white); letter-spacing: -0.03em; line-height: 1; }
+.p-price sup { font-size: 1.1rem; font-weight: 600; vertical-align: top; margin-top: 7px; display: inline-block; }
+.p-period { font-size: 0.7rem; color: var(--gray-3); margin: 6px 0 24px; font-weight: 500; min-height: 34px; }
+.p-div { height: 1px; background: var(--line); margin-bottom: 20px; }
+.p-feats { list-style: none; flex: 1; margin-bottom: 28px; }
+.p-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.78rem; color: var(--gray-2); padding: 6px 0; }
+.p-feats li strong { color: var(--white); font-weight: 500; }
+.chk { width: 15px; height: 15px; border-radius: 50%; background: rgba(5,150,105,0.14); border: 1px solid rgba(52,211,153,0.2); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 8px; color: var(--green-lt); }
+.p-card-enterprise .btn { border-color: #7c3aed !important; color: #7c3aed !important; background: transparent !important; }
+.p-card-enterprise .btn:hover { background: #7c3aed !important; color: #fff !important; }
+.p-card-consultant .btn:hover { background: #0891b2 !important; color: #fff !important; border-color: #0891b2 !important; }
+
+/* PORTAL */
+.portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.p-form { background: var(--navy-3); border: 1px solid var(--gray-4); border-radius: 12px; padding: 32px; }
+.p-form-title { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.p-form-sub { font-size: 0.78rem; color: var(--gray-2); margin-bottom: 24px; line-height: 1.6; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 0.68rem; font-weight: 600; color: var(--gray-2); letter-spacing: 0.05em; margin-bottom: 5px; text-transform: uppercase; }
+.field input { width: 100%; background: var(--navy); border: 1px solid var(--gray-4); border-radius: 6px; padding: 10px 12px; color: var(--white); font-family: var(--font); font-size: 0.82rem; outline: none; transition: border-color 0.15s; }
+.field input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,0.15); }
+.field input::placeholder { color: var(--gray-3); }
+.p-info-title { font-family: var(--display); font-size: 1.35rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
+.p-info-body { font-size: 0.85rem; color: var(--gray-2); line-height: 1.75; margin-bottom: 28px; }
+.p-list { list-style: none; }
+.p-list li { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 0.8rem; color: var(--gray-2); line-height: 1.5; }
+.p-list li:last-child { border-bottom: none; }
+.p-list-icon { width: 26px; height: 26px; border-radius: 6px; background: rgba(26,86,219,0.1); border: 1px solid rgba(26,86,219,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; }
+
+/* SECURITY BAR */
+.sec-bar { padding: 36px 48px; border-top: 1px solid var(--line); }
+.sec-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 44px; flex-wrap: wrap; }
+.sec-item { display: flex; align-items: center; gap: 9px; font-size: 0.76rem; color: var(--gray-3); font-weight: 500; }
+
+/* FOOTER */
+footer { padding: 40px 48px; border-top: 1px solid var(--line); }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-brand { font-family: var(--display); font-size: 0.88rem; font-weight: 700; color: var(--white); display: block; margin-bottom: 4px; }
+.footer-copy { font-size: 0.7rem; color: var(--gray-3); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 0.76rem; color: var(--gray-3); transition: color 0.15s; }
+.footer-links a:hover { color: var(--white); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero-inner, .portal-grid, .section-header, .transform-grid { grid-template-columns: 1fr; }
+  .hero-visual, .t-arrow { display: none; }
+  .feats { grid-template-columns: repeat(2,1fr); }
+  .steps { grid-template-columns: repeat(3,1fr); }
+  .steps::before { display: none; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .p-tier, .p-name, .p-desc, .p-period { min-height: 0; }
+}
+@media (max-width: 768px) {
+  .section { padding: 60px 24px; }
+  .hero { padding: 100px 24px 64px; }
+  .nav-inner { padding: 0 24px; }
+  .nav-links { display: none; }
+  .feats { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2,1fr); }
+  .sec-inner { gap: 24px; }
+  footer, .sec-bar { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo" style="gap:0">
+      <img src="logo.png" alt="" style="height:52px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,180,220,0.3));margin-right:-6px;">
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:2px">
+        <span class="logo-company">DataForge Systems</span>
+        <span class="logo-product">Software Asset Intelligence</span>
+      </div>
+    </a>
+    <div class="nav-divider"></div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="#">Products</a>
+        <div class="nav-dropdown-menu">
+          <a href="saip.html">SAIP</a>
+          <a href="haul.html">Haul</a>
+        </div>
+      </li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#portal">Portal</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#portal" class="btn btn-ghost">Subscriber Portal</a>
+      <a href="https://github.com/dataforge-systems/dataforge-website/releases/download/v1.0.0/SAIP_Setup.exe" class="btn btn-solid">Download Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">
+        <div class="hero-label-line"></div>
+        Software Asset Intelligence Platform
+      </div>
+      <h1>Raw inventory data.<br><em>Trusted license position.</em></h1>
+      <p class="hero-body">SAIP normalizes messy software discovery exports from MECM, Intune, Tanium, Lansweeper, ServiceNow, and more — mapping raw product names to canonical records, suppressing suite duplicates, and calculating true license demand. All offline, on your machine. No cloud required.</p>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:0.82rem;color:var(--gray-2);"><span style="color:var(--green-lt);font-size:14px;">✓</span> Automatic suite suppression — no manual configuration</div>
+      <div class="hero-ctas">
+        <a href="https://github.com/dataforge-systems/dataforge-website/releases/download/v1.0.0/SAIP_Setup.exe" class="btn btn-solid btn-lg">Download Free Trial</a>
+        <a href="#how" class="btn btn-ghost btn-lg">How it works</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item"><span class="proof-val">100%</span><span class="proof-label">Offline capable</span></div>
+        <div class="proof-item"><span class="proof-val">0</span><span class="proof-label">Data uploaded</span></div>
+        <div class="proof-item"><span class="proof-val">&lt;5min</span><span class="proof-label">To first result</span></div>
+        <div class="proof-item"><span class="proof-val">v1.0</span><span class="proof-label">Production ready</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+          <div class="mockup-title-bar">SAIP — License Position · Acme Corp Q1 2026</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-stats">
+            <div class="ms"><div class="ms-val blue">847</div><div class="ms-lbl">Total rows</div></div>
+            <div class="ms"><div class="ms-val green">91%</div><div class="ms-lbl">Match rate</div></div>
+            <div class="ms"><div class="ms-val amber">23</div><div class="ms-lbl">Review</div></div>
+            <div class="ms"><div class="ms-val gray">134</div><div class="ms-lbl">Excluded</div></div>
+          </div>
+          <table class="mt">
+            <thead><tr><th>Product</th><th>License</th><th>Demand</th><th>Owned</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Microsoft 365 E3</td><td><span class="t t-b">per_user</span></td><td>142</td><td>150</td><td><span class="t t-g">✓ Surplus</span></td></tr>
+              <tr><td>Microsoft Teams</td><td><span class="t t-gr">Suppressed</span></td><td>—</td><td>—</td><td><span class="t t-p">Suite child</span></td></tr>
+              <tr><td>Adobe CC All Apps</td><td><span class="t t-b">per_user</span></td><td>38</td><td>35</td><td><span class="t t-a">⚠ Short 3</span></td></tr>
+              <tr><td>Zoom</td><td><span class="t t-b">per_user</span></td><td>142</td><td>150</td><td><span class="t t-g">✓ Surplus</span></td></tr>
+              <tr><td>Windows 11 Pro</td><td><span class="t t-b">per_device</span></td><td>198</td><td>200</td><td><span class="t t-g">✓ Surplus</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM / TRANSFORM -->
+<section class="section alt-bg" id="problem">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><div class="eyebrow-line"></div>The problem</div>
+        <h2>Your discovery tool sees everything.<br><em>Your spreadsheet trusts nothing.</em></h2>
+      </div>
+      <p class="section-desc">MECM exports have dozens of naming variants for the same product. Suite children inflate your counts. Drivers and runtimes clutter every report. SAIP resolves all of it deterministically before a single row reaches your output.</p>
+    </div>
+    <div class="transform-grid">
+      <div class="t-col">
+        <div class="t-col-hdr">
+          <div class="t-col-dot" style="background:#ef4444"></div>
+          <span class="t-col-lbl" style="color:#f87171">Raw discovery data</span>
+        </div>
+        <div class="t-rows">
+          <div class="t-row" style="color:#f87171">Microsoft Teams Machine-Wide Installer</div>
+          <div class="t-row" style="color:#f87171">MICROSOFT TEAMS</div>
+          <div class="t-row" style="color:#f87171">New Microsoft Teams</div>
+          <div class="t-row" style="color:#f87171">microsoft teams</div>
+          <div class="t-row" style="color:#64748b">Adobe Photoshop 2024</div>
+          <div class="t-row" style="color:#64748b">Microsoft Visual C++ 2022 Redistributable</div>
+          <div class="t-row" style="color:#64748b">KB5034441</div>
+          <div class="t-row" style="color:#64748b">Realtek Audio Driver</div>
+        </div>
+      </div>
+      <div class="t-arrow"><div class="arrow-c">→</div></div>
+      <div class="t-col">
+        <div class="t-col-hdr">
+          <div class="t-col-dot" style="background:#10b981"></div>
+          <span class="t-col-lbl" style="color:#34d399">Normalized output</span>
+        </div>
+        <div class="t-rows">
+          <div class="t-row" style="color:#34d399">Microsoft Teams · per_user · 4 users · 95% conf.</div>
+          <div class="t-row" style="color:#34d399">Microsoft Teams · per_user · 4 users · 95% conf.</div>
+          <div class="t-row" style="color:#34d399">Microsoft Teams · per_user · 4 users · 95% conf.</div>
+          <div class="t-row" style="color:#34d399">Microsoft Teams · per_user · 4 users · 95% conf.</div>
+          <div class="t-row" style="color:#818cf8">Suppressed by Adobe Creative Cloud All Apps</div>
+          <div class="t-row" style="color:#475569">Excluded · Runtime/Redistributable</div>
+          <div class="t-row" style="color:#475569">Excluded · Patch artifact (KB regex match)</div>
+          <div class="t-row" style="color:#475569">Excluded · Hardware driver</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div>Workflow<div class="eyebrow-line"></div></div>
+      <h2 style="text-align:center">From raw export to<br><em>license position in five steps</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Load sources</div>
+        <div class="step-body">Import CSV or XLSX exports from MECM, Intune, Tanium, Lansweeper, ServiceNow, or any discovery tool. Multiple sources per project.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Map columns</div>
+        <div class="step-body">Select software name, device, and user columns. MECM and Intune formats are auto-detected from headers.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Normalize</div>
+        <div class="step-body">Engine excludes noise, matches canonical products, suppresses suite children, assigns confidence scores.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Review position</div>
+        <div class="step-body">Demand quantities, owned vs in-use, financial exposure, and overage risk per product in one view.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-title">Export</div>
+        <div class="step-body">Formatted Excel workbook, flat CSV for Power BI, or JSON. Timestamped and audit-ready.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section alt-bg" id="features">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><div class="eyebrow-line"></div>Capabilities</div>
+        <h2>Built for real<br><em>SAM engagements</em></h2>
+      </div>
+      <p class="section-desc">Every capability in SAIP exists because real SAM work demanded it. No demos-only features. Everything ships in the base product and works fully offline.</p>
+    </div>
+    <div class="feats">
+      <div class="feat"><div class="feat-icon">🔬</div><div class="feat-title">Deterministic normalization</div><div class="feat-body">Six-level matching priority with explainable confidence scores. Every result is traceable to its source — customer override, platform mapping, or fuzzy match.</div></div>
+      <div class="feat"><div class="feat-icon">🧩</div><div class="feat-title">Automatic Suite Suppression</div><div class="feat-body">SAIP automatically detects software suites and collections in your environment — like Microsoft 365, Adobe Creative Cloud, or Autodesk AEC Collection — and suppresses individually licensed components to prevent double-counting. No manual configuration required.<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;"><span style="font-size:0.68rem;font-weight:600;color:var(--blue-lt);background:rgba(26,86,219,0.1);border:1px solid rgba(26,86,219,0.18);padding:3px 10px;border-radius:4px;">Microsoft 365 suites</span><span style="font-size:0.68rem;font-weight:600;color:var(--blue-lt);background:rgba(26,86,219,0.1);border:1px solid rgba(26,86,219,0.18);padding:3px 10px;border-radius:4px;">Adobe Creative Cloud</span><span style="font-size:0.68rem;font-weight:600;color:var(--blue-lt);background:rgba(26,86,219,0.1);border:1px solid rgba(26,86,219,0.18);padding:3px 10px;border-radius:4px;">Autodesk Collections</span><span style="font-size:0.68rem;font-weight:600;color:var(--blue-lt);background:rgba(26,86,219,0.1);border:1px solid rgba(26,86,219,0.18);padding:3px 10px;border-radius:4px;">Auto-discovered monthly</span></div></div></div>
+      <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">License position calculation</div><div class="feat-body">Per-user products count distinct usernames. Per-device products count distinct hostnames. Demand quantities reflect your real obligation — not raw install counts.</div></div>
+      <div class="feat"><div class="feat-icon">🚫</div><div class="feat-title">First-class exclusions</div><div class="feat-body">Drivers, VC++ redistributables, .NET runtimes, KB patches, OEM utilities, and update agents are identified and removed before normalization runs.</div></div>
+      <div class="feat"><div class="feat-icon">💰</div><div class="feat-title">Cost and exposure tracking</div><div class="feat-body">Enter contract values, renewal dates, and owned quantities. View coverage status, shortfall risk, and total portfolio spend before you export.</div></div>
+      <div class="feat"><div class="feat-icon">🔌</div><div class="feat-title">Broad source compatibility</div><div class="feat-body">Works with any CSV or Excel export. MECM/SCCM, Intune, Tanium, Lansweeper, PDQ Inventory, Spiceworks, Qualys CSAM, Tenable, Ivanti, ManageEngine, Jamf, VMware Workspace ONE, Hexnode, ServiceNow CMDB, Cherwell, Remedy/BMC, CrowdStrike Falcon, SentinelOne, Rapid7. Column mapping is fully manual — any format works.</div></div>
+      <div class="feat"><div class="feat-icon">🏢</div><div class="feat-title">Multi-source deduplication</div><div class="feat-body">Import from multiple tools in the same project. Duplicate records across sources are automatically deduplicated — one device, one count, regardless of how many tools reported it.</div></div>
+      <div class="feat"><div class="feat-icon">🖥️</div><div class="feat-title">Duplicate device detection</div><div class="feat-body">Automatically detects when the same device appears under different name formats — PC-CORP-001, pc-corp-001, PC-Corp-001. Preview affected rows before merging to see the exact license impact.</div></div>
+      <div class="feat"><div class="feat-icon">🔒</div><div class="feat-title">Fully offline</div><div class="feat-body">Your inventory data never leaves your machine. No cloud upload, no SaaS account, no DPA required. Installs and runs in air-gapped and government environments.</div></div>
+      <div class="feat"><div class="feat-icon">📥</div><div class="feat-title">Power BI-ready exports</div><div class="feat-body">Formatted Excel workbook with five tabs, flat CSV with canonical field names, and structured JSON. All exports are timestamped and audit-ready.</div></div>
+      <div class="feat"><div class="feat-icon">🤖</div><div class="feat-title">Intelligence subscription</div><div class="feat-body">Monthly KB JSON updates with new product mappings, naming variants, exclusion patterns, and suite rules sourced from live IT community data. Import in seconds — no reinstall needed.</div></div>
+      <div class="feat"><div class="feat-icon">⚡</div><div class="feat-title">Same-day KB updates</div><div class="feat-body">Report an unmapped product and we research it the same day. New naming variants are added to the next intelligence update — often within hours. No other SAM tool can match that turnaround.</div></div>
+      <div class="feat"><div class="feat-icon">📈</div><div class="feat-title">Run comparison</div><div class="feat-body">Compare normalization runs side by side to track improvements over time. See exactly what changed between your last import and today's data.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div>Pricing<div class="eyebrow-line"></div></div>
+      <h2 style="text-align:center">Simple, transparent pricing</h2>
+      <p class="section-desc" style="text-align:center;margin:10px auto 0;max-width:560px">One-time purchase or annual subscription. First year Maintenance & Support included on perpetual tiers. No per-seat fees. No hidden costs.</p>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;color:#64748b;margin:0 auto 20px;">Not sure which tier fits? <a href="javascript:void(0)" onclick="window.location='mailto:sales\x40dataforgesystems.io'" style="color:var(--blue-lt)">Email us at sales@dataforgesystems.io</a></p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1340px;margin:0 auto;align-items:stretch;">
+
+      <!-- PROFESSIONAL -->
+      <div class="p-card">
+        <div class="p-tier">Professional</div>
+        <div class="p-name">SAIP Professional</div>
+        <div class="p-desc">For independent SAM consultants and small IT teams. Full normalization platform, yours permanently.</div>
+        <div class="p-price"><sup>$</sup>799</div>
+        <div class="p-period">One-time · First year M&S included · then $199/year</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-top:4px;margin-bottom:24px;">Ideal for small IT teams managing up to 2,500 devices</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li><span class="chk">✓</span><span>Full normalization engine</span></li>
+          <li><span class="chk">✓</span><span>Base platform knowledge base</span></li>
+          <li><span class="chk">✓</span><span>Suite suppression — M365, Adobe CC, and more</span></li>
+          <li><span class="chk">✓</span><span>License position calculation</span></li>
+          <li><span class="chk">✓</span><span>Excel, CSV, JSON, and PDF exports</span></li>
+          <li><span class="chk">✓</span><span>Up to 3 projects</span></li>
+          <li><span class="chk">✓</span><span>Fully offline — air-gapped support</span></li>
+          <li><span class="chk">✓</span><span>Email support — 2 business day response</span></li>
+          <li><span class="chk">✓</span><span>Bug fixes and updates during M&S period</span></li>
+          <li><span class="chk">✓</span><span>Intelligence subscription available — <a href="https://buy.dataforgesystems.io/l/moudd" style="color:var(--blue-lt)">$149/mo</a></span></li>
+          <li><span class="chk">✓</span><span>30-day money-back guarantee</span></li>
+        </ul>
+        <a href="https://buy.dataforgesystems.io/l/yjummh" class="btn btn-ghost btn-lg" style="width:100%;justify-content:center;margin-top:auto">Purchase — $799</a>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="p-card featured">
+        <div class="p-badge">Most popular</div>
+        <div class="p-tier">Business</div>
+        <div class="p-name">SAIP Business</div>
+        <div class="p-desc">For mid-size organizations and internal SAM teams. Everything in Professional plus intelligence subscription and priority support.</div>
+        <div class="p-price"><sup>$</sup>2,499</div>
+        <div class="p-period">One-time · First year M&S included · then $699/year</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-top:4px;margin-bottom:24px;">Ideal for mid-size organizations managing up to 10,000 devices</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li><span class="chk">✓</span><span><strong>Everything in Professional</strong></span></li>
+          <li><span class="chk">✓</span><span>Up to 10 projects</span></li>
+          <li><span class="chk">✓</span><span>Intelligence subscription included — $149/mo value</span></li>
+          <li><span class="chk">✓</span><span>Monthly KB updates with new naming variants</span></li>
+          <li><span class="chk">✓</span><span>Priority email support — same business day</span></li>
+          <li><span class="chk">✓</span><span>Onboarding call included</span></li>
+          <li><span class="chk">✓</span><span>Quarterly check-in call</span></li>
+          <li><span class="chk">✓</span><span>14-day money-back guarantee</span></li>
+        </ul>
+        <a href="https://buy.dataforgesystems.io/l/xtyfq" class="btn btn-solid btn-lg" style="width:100%;justify-content:center;margin-top:auto">Purchase — $2,499</a>
+      </div>
+
+      <!-- CONSULTANT -->
+      <div class="p-card p-card-consultant" style="border-color:var(--cyan);background:linear-gradient(160deg, rgba(6,182,212,0.07) 0%, var(--navy-2) 60%);">
+        <div class="p-tier" style="color:var(--cyan)">Consultant</div>
+        <div class="p-name">SAIP Consultant</div>
+        <div class="p-desc">For SAM Consultants & MSPs</div>
+        <div class="p-price"><sup>$</sup>1,999</div>
+        <div class="p-period">Per year · Annual license</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-top:4px;margin-bottom:24px;">For independent SAM consultants & MSPs only. Organizations require Enterprise licensing.</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li><span class="chk">✓</span><span>Unlimited client projects</span></li>
+          <li><span class="chk">✓</span><span>White-label exports with your branding</span></li>
+          <li><span class="chk">✓</span><span>Intelligence subscription included</span></li>
+          <li><span class="chk">✓</span><span>Priority support — same business day</span></li>
+          <li><span class="chk">✓</span><span>Maintenance & Support included</span></li>
+          <li><span class="chk">✓</span><span>Annual license</span></li>
+        </ul>
+        <a href="https://buy.dataforgesystems.io/l/iymfk" class="btn btn-ghost btn-lg" style="width:100%;justify-content:center;margin-top:auto;border-color:var(--cyan);color:var(--cyan)">Purchase — $1,999/yr</a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="p-card p-card-enterprise" style="border-color:#7c3aed;">
+        <div class="p-tier" style="color:#7c3aed">Enterprise</div>
+        <div class="p-name">SAIP Enterprise</div>
+        <div class="p-desc">For large organizations and regulated environments. Full platform with SLA, dedicated support, and intelligence included.</div>
+        <div class="p-price"><sup>$</sup>14,999</div>
+        <div class="p-period">Per year — M&S and intelligence included, no add-ons</div>
+        <div style="font-size:0.78rem;color:#64748b;margin-top:4px;margin-bottom:24px;">For large organizations, government, and regulated industries</div>
+        <div class="p-div"></div>
+        <ul class="p-feats">
+          <li><span class="chk">✓</span><span><strong>Everything in Consultant</strong></span></li>
+          <li><span class="chk">✓</span><span>Unlimited projects</span></li>
+          <li><span class="chk">✓</span><span>Intelligence subscription included</span></li>
+          <li><span class="chk">✓</span><span>Dedicated support contact</span></li>
+          <li><span class="chk">✓</span><span>4-hour response SLA</span></li>
+          <li><span class="chk">✓</span><span>Custom KB entries for your environment</span></li>
+          <li><span class="chk">✓</span><span>Annual roadmap call</span></li>
+          <li><span class="chk">✓</span><span>EULA and MSA available</span></li>
+        </ul>
+        <a href="javascript:void(0)" onclick="window.location='mailto:sales\x40dataforgesystems.io'" class="btn btn-ghost btn-lg" style="width:100%;justify-content:center;margin-top:auto;border-color:#7c3aed;color:#7c3aed">Contact Sales</a>
+      </div>
+
+    </div>
+
+    <!-- M&S and add-ons note -->
+    <div style="max-width:1100px;margin:32px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:10px;padding:24px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-lt);margin-bottom:10px;">Maintenance & Support Renewal</div>
+        <div style="font-size:0.88rem;color:var(--white);font-weight:600;margin-bottom:8px;">First year included — renew annually</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.6;margin-bottom:12px;">M&S covers bug fixes, feature updates, base KB updates, and email support. Without active M&S the software continues to work but receives no updates or support.</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);">Professional: <a href="https://buy.dataforgesystems.io/l/fysxum" style="color:var(--white);">$199/year</a> &nbsp;·&nbsp; Business: <a href="https://buy.dataforgesystems.io/l/gxuxl" style="color:var(--white);">$699/year</a> &nbsp;·&nbsp; Consultant: <span style="color:var(--white);">Included</span> &nbsp;·&nbsp; Enterprise: <span style="color:var(--white);">Included</span></div>
+      </div>
+      <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:10px;padding:24px;">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">Refund Policy</div>
+        <div style="font-size:0.88rem;color:var(--white);font-weight:600;margin-bottom:8px;">Buy with confidence</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.6;">
+          <strong style="color:var(--white);">Professional:</strong> 30-day money-back guarantee, no questions asked.<br>
+          <strong style="color:var(--white);">Business:</strong> 14-day money-back guarantee.<br>
+          <strong style="color:var(--white);">Consultant:</strong> No refund — annual subscription.<br>
+          <strong style="color:var(--white);">Enterprise:</strong> No refund — contact sales for evaluation.<br>
+          <strong style="color:var(--white);">Intelligence:</strong> Cancel anytime, no refund of current period.
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:0.78rem;color:var(--gray-3);margin-top:20px">
+      All licenses include a 14-day free trial. Intelligence subscription is optional for Professional, included for Business, Consultant, and Enterprise.
+      <br>Need a custom quote or volume pricing? <a href="javascript:void(0)" onclick="window.location='mailto:sales@dataforgesystems.io'" style="color:var(--blue-lt)">Contact our sales team →</a>
+    </p>
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section class="section" id="support" style="background:var(--navy-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="eyebrow" style="justify-content:center"><div class="eyebrow-line"></div>Support<div class="eyebrow-line"></div></div>
+      <h2 style="text-align:center">We're here when you need us</h2>
+      <p class="section-desc" style="text-align:center;margin:10px auto 0;max-width:520px">Real support from the people who built the tool. No ticket queues, no offshore support — direct access to DataForge Systems. Report an unmapped product and we'll have it covered the same day.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto;">
+      <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:14px;">📧</div>
+        <div style="font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px;">Email Support</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.6;margin-bottom:16px;">All tiers. Response within 2 business days for Professional, same business day for Business and Enterprise.</div>
+        <a href="javascript:void(0)" onclick="window.location='mailto:support@dataforgesystems.io'" style="color:var(--blue-lt);font-size:0.78rem;font-weight:600;">support&#64;dataforgesystems.io</a>
+      </div>
+      <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:14px;">📖</div>
+        <div style="font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px;">Documentation</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.6;margin-bottom:16px;">Comprehensive user guide covering every feature, workflow, and common troubleshooting scenario.</div>
+        <a href="/help" style="color:var(--blue-lt);font-size:0.78rem;font-weight:600;">Visit Help Center →</a>
+      </div>
+      <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:14px;">🤝</div>
+        <div style="font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px;">Sales & Enterprise</div>
+        <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.6;margin-bottom:16px;">Evaluations, volume pricing, MSA negotiation, and custom KB development for large organizations.</div>
+        <a href="javascript:void(0)" onclick="window.location='mailto:sales@dataforgesystems.io'" style="color:var(--blue-lt);font-size:0.78rem;font-weight:600;">sales&#64;dataforgesystems.io</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBER PORTAL -->
+<section class="section alt-bg" id="portal">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow"><div class="eyebrow-line"></div>Subscriber portal</div>
+        <h2>Download your<br><em>intelligence update</em></h2>
+      </div>
+      <p class="section-desc">Active subscribers can download the latest platform knowledge base JSON at any time. Import it into SAIP via Settings → Intelligence Update. No reinstall or restart required.</p>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="p-info-title">What subscribers receive each month</div>
+        <p class="p-info-body">Each update is a versioned, self-contained JSON file you import at your own pace. Previous versions are always available. Nothing is forced or automatic.</p>
+        <ul class="p-list">
+          <li><div class="p-list-icon">📦</div><span>New raw naming variants — the exact strings MECM, Intune, Tanium, Lansweeper, ServiceNow, and more produce for every product</span></li>
+          <li><div class="p-list-icon">🆕</div><span>New canonical products as vendors release, rename, and retire software titles</span></li>
+          <li><div class="p-list-icon">🧩</div><span>Updated suite rules when vendors change what a license tier includes</span></li>
+          <li><div class="p-list-icon">🚫</div><span>New exclusion patterns for emerging deployment artifacts, agents, and helper utilities</span></li>
+          <li><div class="p-list-icon">📋</div><span>License type corrections when vendors move from per-device to per-user or subscription models</span></li>
+          <li><div class="p-list-icon">🔄</div><span>Versioned JSON — import at your own pace, every prior version retained</span></li>
+        </ul>
+      </div>
+      <div class="p-form" id="portal-form">
+        <div class="p-form-title">Access your downloads</div>
+        <p class="p-form-sub">Enter your account email and license key to access the subscriber download portal.</p>
+        <div class="field">
+          <label>Email address</label>
+          <input type="email" id="portal-email" placeholder="you@organization.com">
+        </div>
+        <div class="field">
+          <label>License key</label>
+          <input type="text" id="portal-key" placeholder="SAIP-XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX">
+        </div>
+        <div id="portal-error" style="display:none;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.3);border-radius:6px;padding:10px 14px;font-size:0.8rem;color:#fca5a5;margin-bottom:10px;"></div>
+        <button class="btn btn-solid btn-lg" id="portal-btn" style="width:100%;justify-content:center;margin-top:6px" onclick="portalLogin()">
+          Access Downloads →
+        </button>
+        <p style="font-size:0.7rem;color:var(--gray-3);text-align:center;margin-top:12px">Not a subscriber? <a href="#pricing" style="color:var(--blue-lt)">View pricing →</a></p>
+      </div>
+
+      <div class="p-form" id="portal-downloads" style="display:none;">
+        <div class="p-form-title">✓ Welcome back, <span id="dl-name"></span></div>
+        <p class="p-form-sub" style="margin-bottom:20px;">
+          <span id="dl-tier" style="background:rgba(26,86,219,0.2);color:#93c5fd;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:600;"></span>
+        </p>
+        <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.2);border-radius:10px;padding:20px;margin-bottom:16px;">
+          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#06b6d4;margin-bottom:8px;">Latest Update</div>
+          <div style="font-size:1rem;font-weight:700;color:#f8fafc;margin-bottom:4px;" id="dl-version"></div>
+          <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:4px;" id="dl-released"></div>
+          <div style="font-size:0.8rem;color:#94a3b8;" id="dl-stats"></div>
+        </div>
+        <a id="dl-btn" href="#" class="btn btn-solid btn-lg" style="width:100%;justify-content:center;margin-bottom:10px;">
+          Download intelligence_update.json
+        </a>
+        <p style="font-size:0.75rem;color:#94a3b8;line-height:1.6;">
+          Import into SAIP via <strong style="color:#e2e8f0;">Intelligence → Import Intelligence Update File</strong>
+        </p>
+        <button onclick="portalLogout()" style="background:none;border:none;color:#475569;font-size:0.75rem;cursor:pointer;margin-top:12px;width:100%;">Sign out</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY BAR -->
+<div class="sec-bar">
+  <div class="sec-inner">
+    <div class="sec-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 3.5V8c0 3.3 2.5 5.8 6 7 3.5-1.2 6-3.7 6-7V3.5L8 1z" stroke="#475569" stroke-width="1.2" fill="none"/><path d="M5.5 8l1.8 1.8L10.5 6" stroke="#475569" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Your data never leaves your machine
+    </div>
+    <div class="sec-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="#475569" stroke-width="1.2"/><path d="M5 7V5a3 3 0 016 0v2" stroke="#475569" stroke-width="1.2" stroke-linecap="round"/></svg>
+      No SaaS account or cloud required
+    </div>
+    <div class="sec-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#475569" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="#475569" stroke-width="1.2" stroke-linecap="round"/></svg>
+      Air-gapped environments supported
+    </div>
+    <div class="sec-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M4 4V3a1 1 0 011-1h6a1 1 0 011 1v1M6 8h4M6 11h4" stroke="#475569" stroke-width="1.2" stroke-linecap="round"/><rect x="3" y="4" width="10" height="10" rx="1" stroke="#475569" stroke-width="1.2"/></svg>
+      No DPA or security review required
+    </div>
+    <div class="sec-item">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.5L8 9.8l-3.1 1.6.6-3.5L3 5.5l3.5-.5L8 2z" stroke="#475569" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Every result auditable and explainable
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT / ORIGIN STORY -->
+<section class="section" id="about" style="background:var(--navy-2);border-top:1px solid var(--line)">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px;margin:0 auto;">
+      <div>
+        <div class="eyebrow"><div class="eyebrow-line"></div>Why we built this</div>
+        <h2>Built by a practitioner.<br><em>Not a software company.</em></h2>
+        <p style="font-size:1rem;color:var(--gray-2);line-height:1.8;margin-top:20px;">
+          DataForge Systems was founded by a software asset management professional with 10 years of experience managing software inventory for large government and military organizations — and 5 additional years in general enterprise IT.
+        </p>
+        <p style="font-size:1rem;color:var(--gray-2);line-height:1.8;margin-top:16px;">
+          In that time, one problem never got solved: nobody could take the raw, messy data that discovery tools produce and turn it into something a SAM team could actually trust. Every normalization effort ended up in a spreadsheet, maintained manually, drifting further from reality with every software update and every new device.
+        </p>
+        <p style="font-size:1rem;color:var(--gray-2);line-height:1.8;margin-top:16px;">
+          SAIP exists because that problem deserved a real solution — one built by someone who has lived it in some of the most demanding, security-conscious environments in the world.
+        </p>
+        <p style="font-size:1rem;color:var(--gray-2);line-height:1.8;margin-top:16px;">
+          Every feature in SAIP — the exclusions engine, the suite suppression logic, the per-user vs per-device calculation, the air-gapped deployment model — came directly from real problems encountered in real government and enterprise environments. Nothing is theoretical. Everything is tested against the kind of data that actually comes out of MECM in production.
+        </p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;border-left:3px solid var(--blue);">
+          <div style="font-size:2.5rem;font-weight:800;font-family:'Sora',sans-serif;color:var(--blue-lt);letter-spacing:-0.03em;line-height:1;margin-bottom:8px;">10+</div>
+          <div style="font-size:0.88rem;font-weight:600;color:var(--white);margin-bottom:6px;">Years in Government & Military SAM</div>
+          <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.5;">Managing software inventory for large government and military organizations — air-gapped environments, strict compliance requirements, and zero tolerance for inaccurate license positions.</div>
+        </div>
+
+        <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;border-left:3px solid var(--cyan);">
+          <div style="font-size:2.5rem;font-weight:800;font-family:'Sora',sans-serif;color:var(--cyan);letter-spacing:-0.03em;line-height:1;margin-bottom:8px;">15+</div>
+          <div style="font-size:0.88rem;font-weight:600;color:var(--white);margin-bottom:6px;">Years Total IT Experience</div>
+          <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.5;">10 years government and military SAM plus 5 years general enterprise IT. SAIP is built on the full breadth of that experience — not just one environment.</div>
+        </div>
+
+        <div style="background:var(--navy-3);border:1px solid var(--gray-4);border-radius:12px;padding:28px;border-left:3px solid var(--green);">
+          <div style="font-size:2.5rem;font-weight:800;font-family:'Sora',sans-serif;color:var(--green-lt);letter-spacing:-0.03em;line-height:1;margin-bottom:8px;">100%</div>
+          <div style="font-size:0.88rem;font-weight:600;color:var(--white);margin-bottom:6px;">Offline by design</div>
+          <div style="font-size:0.78rem;color:var(--gray-2);line-height:1.5;">Government and military environments demand it. Your inventory data never leaves your machine — that was a requirement from day one, not an afterthought.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand">DataForge Systems</span>
+      <span class="footer-copy">© 2026 DataForge Systems LLC · dataforgesystems.io · All rights reserved</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#features">Features</a
+<script>
+window.addEventListener("DOMContentLoaded", function() {
+  var d = "dataforgesystems.io";
+  var ids = {
+
+<script>
+const PORTAL_API = 'https://web-production-7b3ae.up.railway.app';
+
+async function portalLogin() {
+  const email = document.getElementById('portal-email').value.trim();
+  const key = document.getElementById('portal-key').value.trim();
+  const btn = document.getElementById('portal-btn');
+  const err = document.getElementById('portal-error');
+
+  if (!email || !key) {
+    showPortalError('Please enter your email and license key.');
+    return;
+  }
+
+  btn.textContent = 'Verifying...';
+  btn.disabled = true;
+  err.style.display = 'none';
+
+  try {
+    const res = await fetch(PORTAL_API + '/api/portal/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, license_key: key })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      showPortalError(data.detail || 'Invalid email or license key. Please check and try again.');
+      btn.textContent = 'Access Downloads →';
+      btn.disabled = false;
+      return;
+    }
+
+    // Show downloads panel
+    document.getElementById('portal-form').style.display = 'none';
+    document.getElementById('portal-downloads').style.display = 'block';
+    document.getElementById('dl-name').textContent = data.customer_name || email;
+    document.getElementById('dl-tier').textContent = data.tier + ' License';
+    document.getElementById('dl-version').textContent = 'v' + data.latest_version;
+    document.getElementById('dl-released').textContent = 'Released: ' + data.released;
+    document.getElementById('dl-stats').textContent = 
+      data.products_covered + ' products · ' + data.new_mappings + ' mappings';
+    
+    const dlBtn = document.getElementById('dl-btn');
+    dlBtn.href = data.download_url;
+    dlBtn.download = 'intelligence_' + data.latest_version + '_approved.json';
+
+  } catch(e) {
+    showPortalError('Connection error. Please try again in a moment.');
+    btn.textContent = 'Access Downloads →';
+    btn.disabled = false;
+  }
+}
+
+function showPortalError(msg) {
+  const err = document.getElementById('portal-error');
+  err.textContent = msg;
+  err.style.display = 'block';
+}
+
+function portalLogout() {
+  document.getElementById('portal-form').style.display = 'block';
+  document.getElementById('portal-downloads').style.display = 'none';
+  document.getElementById('portal-email').value = '';
+  document.getElementById('portal-key').value = '';
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('portal-email') === document.activeElement ||
+      e.key === 'Enter' && document.getElementById('portal-key') === document.activeElement) {
+    portalLogin();
+  }
+});
+</script>
