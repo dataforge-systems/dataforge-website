@@ -27,6 +27,8 @@
   --accent-glow: rgba(59,130,246,0.25);
   --haul-accent: #22c55e;
   --haul-dim: rgba(34,197,94,0.12);
+  --ps-accent: #a78bfa;
+  --ps-dim: rgba(167,139,250,0.12);
   --services-accent: #f59e0b;
   --services-dim: rgba(245,158,11,0.12);
   --radius: 12px;
@@ -102,9 +104,7 @@ nav {
   display:flex;align-items:center;gap:.5rem;
   color:var(--text-muted);font-size:.82rem;font-weight:500;
 }
-.hero-pillar .pip {
-  width:5px;height:5px;border-radius:50%;
-}
+.hero-pillar .pip{width:5px;height:5px;border-radius:50%}
 .hero-pillar:nth-child(1) .pip{background:var(--accent)}
 .hero-pillar:nth-child(2) .pip{background:var(--haul-accent)}
 .hero-pillar:nth-child(3) .pip{background:var(--services-accent)}
@@ -154,7 +154,7 @@ nav {
 
 /* ─── PRODUCTS ─── */
 .products{padding:4rem 2rem 6rem;max-width:1120px;margin:0 auto}
-.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 
 .product-card {
   position:relative;border-radius:var(--radius-lg);overflow:hidden;
@@ -165,6 +165,7 @@ nav {
 .product-card:hover{border-color:var(--border);transform:translateY(-4px)}
 .product-card.saip:hover{border-color:rgba(59,130,246,0.3);box-shadow:0 8px 40px rgba(59,130,246,0.08)}
 .product-card.haul:hover{border-color:rgba(34,197,94,0.3);box-shadow:0 8px 40px rgba(34,197,94,0.08)}
+.product-card.ps:hover{border-color:rgba(167,139,250,0.3);box-shadow:0 8px 40px rgba(167,139,250,0.08)}
 
 .card-visual {
   position:relative;padding:2.5rem 2rem 2rem;
@@ -173,40 +174,85 @@ nav {
 }
 .saip .card-visual{background:linear-gradient(135deg, #0f1528 0%, #0c0f1a 100%)}
 .haul .card-visual{background:linear-gradient(135deg, #0f1a14 0%, #0f1410 100%)}
+.ps .card-visual{background:linear-gradient(135deg, #150f28 0%, #110c1a 100%)}
 
+/* SAIP visual — terminal */
 .saip-visual {
   position:absolute;top:1.2rem;right:1.2rem;left:1.2rem;
   font-family:var(--font-mono);font-size:.65rem;
   color:rgba(59,130,246,0.5);line-height:1.8;
   opacity:.6;pointer-events:none;
 }
-.saip-visual .row{display:flex;gap:1rem;white-space:nowrap}
+.saip-visual .row{display:flex;gap:1rem;white-space:nowrap;opacity:0;animation:saipRow 6s ease infinite}
+.saip-visual .row:nth-child(1){animation-delay:0s}
+.saip-visual .row:nth-child(2){animation-delay:.4s}
+.saip-visual .row:nth-child(3){animation-delay:.8s}
+.saip-visual .row:nth-child(4){animation-delay:1.2s}
+.saip-visual .row:nth-child(5){animation-delay:2s}
+.saip-visual .row:nth-child(6){animation-delay:2.4s}
+@keyframes saipRow{0%{opacity:0;transform:translateX(-8px)}8%{opacity:1;transform:translateX(0)}80%{opacity:1}100%{opacity:0}}
 .saip-visual .hi{color:rgba(59,130,246,0.8)}
 .saip-visual .dim{color:rgba(59,130,246,0.25)}
+.saip-cursor{
+  display:inline-block;width:6px;height:12px;background:rgba(59,130,246,0.7);
+  margin-left:4px;animation:blink 1s step-end infinite;vertical-align:middle;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-.haul-visual {
-  position:absolute;inset:0;pointer-events:none;opacity:.45;
+/* Haul visual — map dots */
+.haul-visual{position:absolute;inset:0;pointer-events:none;opacity:.45}
+.haul-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--haul-accent)}
+.haul-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(34,197,94,0.3)}
+.haul-dot:nth-child(1){top:20%;left:25%;animation:drift1 8s ease-in-out infinite}
+.haul-dot:nth-child(2){top:35%;left:60%;width:6px;height:6px;animation:drift2 9s ease-in-out infinite}
+.haul-dot:nth-child(3){top:55%;left:40%;animation:drift3 7s ease-in-out infinite}
+.haul-dot:nth-child(4){top:30%;left:78%;width:5px;height:5px;animation:drift4 10s ease-in-out infinite}
+.haul-dot:nth-child(5){top:65%;left:70%;animation:drift2 8s ease-in-out infinite .5s}
+.haul-dot:nth-child(6){top:45%;left:15%;width:6px;height:6px;animation:drift1 9s ease-in-out infinite 1s}
+.haul-dot:nth-child(7){top:75%;left:50%;width:5px;height:5px;animation:drift3 11s ease-in-out infinite .3s}
+@keyframes drift1{0%,100%{transform:translate(0,0)}25%{transform:translate(6px,-4px)}50%{transform:translate(-3px,7px)}75%{transform:translate(4px,3px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}25%{transform:translate(-5px,5px)}50%{transform:translate(7px,-3px)}75%{transform:translate(-2px,-6px)}}
+@keyframes drift3{0%,100%{transform:translate(0,0)}25%{transform:translate(4px,6px)}50%{transform:translate(-6px,-2px)}75%{transform:translate(3px,-5px)}}
+@keyframes drift4{0%,100%{transform:translate(0,0)}33%{transform:translate(-4px,4px)}66%{transform:translate(5px,-3px)}}
+.haul-ring{position:absolute;top:38%;left:42%;width:100px;height:100px;border-radius:50%;border:1px solid rgba(34,197,94,0.12);animation:ringPulse 4s ease-in-out infinite}
+.haul-ring:nth-child(8){top:28%;left:35%;width:160px;height:160px;border-color:rgba(34,197,94,0.06);animation-delay:1s}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.5}}
+
+/* Plain Simple visual — document scan lines */
+.ps-visual{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.ps-doc{
+  position:absolute;top:15%;left:50%;transform:translateX(-50%);
+  width:80px;height:100px;border-radius:6px;
+  border:1.5px solid rgba(167,139,250,0.25);
+  background:rgba(167,139,250,0.04);
 }
-.haul-dot {
-  position:absolute;width:8px;height:8px;border-radius:50%;
-  background:var(--haul-accent);
+.ps-line{
+  position:absolute;left:10px;right:10px;height:2px;border-radius:1px;
+  background:rgba(167,139,250,0.15);
 }
-.haul-dot::after{
-  content:'';position:absolute;inset:-4px;border-radius:50%;
-  border:1px solid rgba(34,197,94,0.3);
+.ps-line:nth-child(1){top:20px;right:30px}
+.ps-line:nth-child(2){top:28px}
+.ps-line:nth-child(3){top:36px;right:20px}
+.ps-line:nth-child(4){top:48px;right:35px}
+.ps-line:nth-child(5){top:56px}
+.ps-line:nth-child(6){top:64px;right:25px}
+.ps-scan{
+  position:absolute;top:15%;left:50%;transform:translateX(-50%);
+  width:80px;height:3px;
+  background:linear-gradient(90deg, transparent, rgba(167,139,250,0.6), transparent);
+  animation:scanMove 2.5s ease-in-out infinite;
 }
-.haul-dot:nth-child(1){top:20%;left:25%}
-.haul-dot:nth-child(2){top:35%;left:60%;width:6px;height:6px}
-.haul-dot:nth-child(3){top:55%;left:40%}
-.haul-dot:nth-child(4){top:30%;left:78%;width:5px;height:5px}
-.haul-dot:nth-child(5){top:65%;left:70%}
-.haul-dot:nth-child(6){top:45%;left:15%;width:6px;height:6px}
-.haul-dot:nth-child(7){top:75%;left:50%;width:5px;height:5px}
-.haul-ring {
-  position:absolute;top:38%;left:42%;width:100px;height:100px;
-  border-radius:50%;border:1px solid rgba(34,197,94,0.12);
+@keyframes scanMove{0%,100%{top:15%}50%{top:70%}}
+.ps-arrow{
+  position:absolute;top:55%;left:50%;transform:translateX(-50%);
+  color:rgba(167,139,250,0.3);font-size:1.2rem;
 }
-.haul-ring:nth-child(8){top:28%;left:35%;width:160px;height:160px;border-color:rgba(34,197,94,0.06)}
+.ps-result{
+  position:absolute;bottom:8%;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:.55rem;
+  color:rgba(167,139,250,0.5);text-align:center;white-space:nowrap;
+}
+.ps-result .hi{color:rgba(167,139,250,0.8)}
 
 .card-icon {
   width:44px;height:44px;border-radius:12px;
@@ -217,6 +263,7 @@ nav {
 }
 .saip .card-icon{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(59,130,246,0.2)}
 .haul .card-icon{background:var(--haul-dim);color:var(--haul-accent);border:1px solid rgba(34,197,94,0.2)}
+.ps .card-icon{background:var(--ps-dim);color:var(--ps-accent);border:1px solid rgba(167,139,250,0.2)}
 
 .card-body{padding:1.6rem 2rem 1.8rem;flex:1;display:flex;flex-direction:column}
 .card-body h3{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.25rem}
@@ -235,48 +282,42 @@ nav {
 }
 .saip .card-cta{color:var(--accent)}
 .haul .card-cta{color:var(--haul-accent)}
+.ps .card-cta{color:var(--ps-accent)}
 .card-cta .arrow-r{transition:transform .2s}
 .product-card:hover .card-cta .arrow-r{transform:translateX(4px)}
 
-/* ─── ABOUT / COMPANY ─── */
+/* ─── ABOUT ─── */
 .about{padding:4rem 2rem 6rem;max-width:1120px;margin:0 auto}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
 .about-text p{color:var(--text-secondary);font-size:.95rem;line-height:1.7;margin-bottom:1.2rem}
 .about-text p:last-child{margin-bottom:0}
 .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.stat-card {
-  padding:1.5rem;border-radius:var(--radius);
-  background:var(--bg-elevated);border:1px solid var(--border);
-}
-.stat-number{
-  font-size:1.8rem;font-weight:700;letter-spacing:-.03em;
-  font-family:var(--font-mono);
-  margin-bottom:.3rem;
-}
-.stat-number.purple{color:var(--accent)}
+.stat-card{padding:1.5rem;border-radius:var(--radius);background:var(--bg-elevated);border:1px solid var(--border)}
+.stat-number{font-size:1.8rem;font-weight:700;letter-spacing:-.03em;font-family:var(--font-mono);margin-bottom:.3rem}
+.stat-number.blue{color:var(--accent)}
 .stat-number.green{color:var(--haul-accent)}
 .stat-number.amber{color:var(--services-accent)}
 .stat-number.white{color:var(--text-primary)}
+
 .stat-label{color:var(--text-secondary);font-size:.78rem;line-height:1.4}
 
 /* ─── CTA BANNER ─── */
-.cta-banner {
+.cta-banner{
   margin:0 2rem 6rem;max-width:1088px;margin-left:auto;margin-right:auto;
   padding:3rem;border-radius:var(--radius-lg);
   background:var(--bg-elevated);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
 }
 .cta-banner h3{font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
 .cta-banner p{color:var(--text-secondary);font-size:.9rem;margin-top:.3rem}
 .cta-buttons{display:flex;gap:.8rem;flex-shrink:0}
-.btn-primary {
+.btn-primary{
   padding:.6rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;
   background:var(--accent);color:#fff;transition:all .2s;
   display:inline-flex;align-items:center;gap:.4rem;
 }
 .btn-primary:hover{background:#2563eb;transform:translateY(-1px)}
-.btn-secondary {
+.btn-secondary{
   padding:.6rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:500;
   background:var(--bg-surface);color:var(--text-secondary);
   border:1px solid var(--border);transition:all .2s;
@@ -284,10 +325,7 @@ nav {
 .btn-secondary:hover{color:var(--text-primary);border-color:var(--text-muted)}
 
 /* ─── FOOTER ─── */
-footer {
-  padding:3rem 2rem;border-top:1px solid var(--border-subtle);
-  max-width:1120px;margin:0 auto;
-}
+footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:1120px;margin:0 auto}
 .footer-top{display:flex;align-items:start;justify-content:space-between;margin-bottom:2rem}
 .footer-logo{display:flex;align-items:center;gap:.5rem;font-weight:500;font-size:.85rem;color:var(--text-secondary)}
 .footer-logo img{width:22px;height:22px}
@@ -302,6 +340,10 @@ footer {
 }
 
 /* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .product-grid{grid-template-columns:1fr 1fr}
+  .product-card.ps{grid-column:1 / -1}
+}
 @media(max-width:768px){
   nav{padding:0 1.2rem}
   .nav-links{gap:1rem}
@@ -345,7 +387,7 @@ footer {
     <a href="#what-we-do">What We Do</a>
     <a href="#products">Products</a>
     <a href="#about">About</a>
-    <a href="mailto:contact@dataforgesystems.io">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#42212d2c362321360226233623242d302527313b3136272f316c2b2d">Contact</a>
     <a href="saip.html" class="cta">Try SAIP Free</a>
   </div>
 </nav>
@@ -410,7 +452,7 @@ footer {
           <div class="row"><span class="dim">&#9500;&#9472;&#9472;</span> <span>SUITE</span> <span>&rarr; suppressed by M365 E3</span></div>
           <div class="row"><span class="dim">&#9492;&#9472;&#9472;</span> <span class="hi">OK</span> <span class="dim">&middot;&middot;&middot;</span> <span>847 rows processed</span></div>
           <div class="row" style="margin-top:.4rem"><span class="hi">EXCLUDE</span> <span class="dim">&middot;&middot;&middot;&middot;&middot;</span> <span>Microsoft Visual C++ 2022 Redist</span></div>
-          <div class="row"><span class="dim">&#9492;&#9472;&#9472;</span> <span>RUNTIME</span> <span class="dim">&middot;&middot;</span> <span>pattern match</span></div>
+          <div class="row"><span class="dim">&#9492;&#9472;&#9472;</span> <span>RUNTIME</span> <span class="dim">&middot;&middot;</span> <span>pattern match</span><span class="saip-cursor"></span></div>
         </div>
         <div class="card-icon">S</div>
       </div>
@@ -424,9 +466,7 @@ footer {
           <span>Gov/Mil</span>
         </div>
         <p class="card-desc">Normalizes messy software discovery exports into trusted license positions. Maps raw product names, suppresses suite duplicates, calculates true demand. Fully offline.</p>
-        <div class="card-cta">
-          Learn more <span class="arrow-r">&rarr;</span>
-        </div>
+        <div class="card-cta">Learn more <span class="arrow-r">&rarr;</span></div>
       </div>
     </a>
 
@@ -434,15 +474,9 @@ footer {
     <a href="haul.html" class="product-card haul reveal reveal-d1">
       <div class="card-visual">
         <div class="haul-visual">
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-dot"></div>
-          <div class="haul-ring"></div>
-          <div class="haul-ring"></div>
+          <div class="haul-dot"></div><div class="haul-dot"></div><div class="haul-dot"></div>
+          <div class="haul-dot"></div><div class="haul-dot"></div><div class="haul-dot"></div>
+          <div class="haul-dot"></div><div class="haul-ring"></div><div class="haul-ring"></div>
         </div>
         <div class="card-icon">H</div>
       </div>
@@ -456,9 +490,34 @@ footer {
           <span>Marketplace</span>
         </div>
         <p class="card-desc">Live map of local sales, instant pricing comps, direct marketplace listing, mileage tracking, and real profit calculation. The mobile toolkit for resellers.</p>
-        <div class="card-cta">
-          Learn more <span class="arrow-r">&rarr;</span>
+        <div class="card-cta">Learn more <span class="arrow-r">&rarr;</span></div>
+      </div>
+    </a>
+
+    <!-- PLAIN SIMPLE -->
+    <a href="plainsimple.html" class="product-card ps reveal reveal-d2">
+      <div class="card-visual">
+        <div class="ps-visual">
+          <div class="ps-doc">
+            <div class="ps-line"></div><div class="ps-line"></div><div class="ps-line"></div>
+            <div class="ps-line"></div><div class="ps-line"></div><div class="ps-line"></div>
+          </div>
+          <div class="ps-scan"></div>
+          <div class="ps-result"><span class="hi">EXPLAINED</span> &middot; plain English &middot; 100% private</div>
         </div>
+        <div class="card-icon">PS</div>
+      </div>
+      <div class="card-body">
+        <h3>Plain Simple</h3>
+        <div class="card-tagline">Confused by anything? Snap it.</div>
+        <div class="card-tags">
+          <span>iOS</span>
+          <span>AI-Powered</span>
+          <span>Private</span>
+          <span>No Account</span>
+        </div>
+        <p class="card-desc">Snap a photo of anything confusing — medical bills, legal contracts, scam texts, prescription labels, instructions — and get a plain English explanation in seconds. 100% private.</p>
+        <div class="card-cta">Learn more <span class="arrow-r">&rarr;</span></div>
       </div>
     </a>
   </div>
@@ -477,11 +536,11 @@ footer {
     </div>
     <div class="about-stats reveal reveal-d1">
       <div class="stat-card">
-        <div class="stat-number purple">15+</div>
+        <div class="stat-number blue">15+</div>
         <div class="stat-label">Years in government, military, and enterprise IT — including DoD and air-gapped environments</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number green">2</div>
+        <div class="stat-number green">3</div>
         <div class="stat-label">Products shipped across enterprise and consumer markets</div>
       </div>
       <div class="stat-card">
@@ -503,7 +562,7 @@ footer {
     <p>Whether it's a product question, a consulting engagement, or a custom AI project — we'd like to hear about it.</p>
   </div>
   <div class="cta-buttons">
-    <a href="mailto:contact@dataforgesystems.io" class="btn-primary">Get in touch &rarr;</a>
+    <a href="/cdn-cgi/l/email-protection#2f4c40415b4e4c5b6f4b4e5b4e49405d484a5c565c5b4a425c014640" class="btn-primary">Get in touch &rarr;</a>
     <a href="saip.html" class="btn-secondary">Explore SAIP</a>
   </div>
 </div>
@@ -520,6 +579,7 @@ footer {
         <h5>Products</h5>
         <a href="saip.html">SAIP</a>
         <a href="haul.html">Haul</a>
+        <a href="plainsimple.html">Plain Simple</a>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
@@ -528,29 +588,10 @@ footer {
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <a href="mailto:contact@dataforgesystems.io">contact@dataforgesystems.io</a>
-        <a href="mailto:sales@dataforgesystems.io">sales@dataforgesystems.io</a>
+        <a href="/cdn-cgi/l/email-protection#a4c7cbcad0c5c7d0e4c0c5d0c5c2cbd6c3c1d7ddd7d0c1c9d78acdcb"><span class="__cf_email__" data-cfemail="c4a7abaab0a5a7b084a0a5b0a5a2abb6a3a1b7bdb7b0a1a9b7eaadab">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#0b786a676e784b6f6a7f6a6d64796c6e7872787f6e6678256264"><span class="__cf_email__" data-cfemail="691a08050c1a290d081d080f061b0e0c1a101a1d0c041a470006">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 DataForge Systems LLC. All rights reserved.
-  </div>
-</footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-});
-</script>
-</body>
-</html>
+    <span>&copy; 20
