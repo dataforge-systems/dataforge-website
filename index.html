@@ -60,6 +60,10 @@ nav {
   transition:all .2s;
 }
 .nav-links .cta:hover{background:#2563eb;transform:translateY(-1px)}
+.nav-dropdown{position:relative}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;padding:.5rem 0;background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;min-width:160px;z-index:100;margin-top:.5rem}
+.nav-dropdown-menu a{display:block;padding:.45rem 1rem;font-size:.82rem;white-space:nowrap}
+.nav-dropdown:hover .nav-dropdown-menu{display:block}
 
 /* ─── HERO ─── */
 .hero {
@@ -369,9 +373,6 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
 }
 
 /* ─── OBSERVER ANIMATIONS ─── */
-.reveal{opacity:1}
-.reveal-d1{transition-delay:.1s}
-.reveal-d2{transition-delay:.2s}
 </style>
 </head>
 <body>
@@ -384,9 +385,9 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
   </a>
   <div class="nav-links">
     <a href="#what-we-do">What We Do</a>
-    <a href="#products">Products</a>
+    <span class="nav-dropdown"><a href="#products">Products</a><span class="nav-dropdown-menu"><a href="saip.html">SAIP</a><a href="haul.html">Haul</a><a href="plainsimple.html">Plain Simple</a></span></span>
     <a href="#about">About</a>
-    <a href="/cdn-cgi/l/email-protection#42212d2c362321360226233623242d302527313b3136272f316c2b2d">Contact</a>
+    <a href="mailto:hello@dataforgesystems.io">Contact</a>
     <a href="saip.html" class="cta">Try SAIP Free</a>
   </div>
 </nav>
@@ -417,17 +418,17 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
   <p class="section-subtitle">From standalone products to custom AI solutions — we bring domain expertise and engineering discipline to every engagement.</p>
 
   <div class="capability-grid">
-    <div class="capability-card reveal">
+    <div class="capability-card">
       <div class="cap-icon">&#x2692;</div>
       <h4>Software Products</h4>
       <p>Purpose-built tools for specific markets. Desktop, mobile, and web — designed by people who understand the problem space because they've worked in it.</p>
     </div>
-    <div class="capability-card reveal reveal-d1">
+    <div class="capability-card">
       <div class="cap-icon">&#x2731;</div>
       <h4>AI Solutions</h4>
       <p>Custom AI pipelines, intelligent data processing, and LLM integration. We build AI that solves concrete business problems — not demos.</p>
     </div>
-    <div class="capability-card reveal reveal-d2">
+    <div class="capability-card">
       <div class="cap-icon">&#x2637;</div>
       <h4>Consulting</h4>
       <p>Strategic technology guidance for organizations navigating AI adoption, software architecture, and IT asset management.</p>
@@ -443,7 +444,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
 
   <div class="product-grid">
     <!-- SAIP -->
-    <a href="saip.html" class="product-card saip reveal">
+    <a href="saip.html" class="product-card saip">
       <div class="card-visual">
         <div class="saip-visual">
           <div class="row"><span class="hi">NORMALIZE</span> <span class="dim">&middot;&middot;&middot;&middot;&middot;</span> <span>Microsoft Teams Machine-Wide Installer</span></div>
@@ -470,7 +471,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
     </a>
 
     <!-- HAUL -->
-    <a href="haul.html" class="product-card haul reveal reveal-d1">
+    <a href="haul.html" class="product-card haul">
       <div class="card-visual">
         <div class="haul-visual">
           <div class="haul-dot"></div><div class="haul-dot"></div><div class="haul-dot"></div>
@@ -494,7 +495,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
     </a>
 
     <!-- PLAIN SIMPLE -->
-    <a href="plainsimple.html" class="product-card ps reveal reveal-d2">
+    <a href="plainsimple.html" class="product-card ps">
       <div class="card-visual">
         <div class="ps-visual">
           <div class="ps-doc">
@@ -528,12 +529,12 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
   <h2 class="section-title">Why DataForge exists</h2>
 
   <div class="about-grid">
-    <div class="about-text reveal">
+    <div class="about-text">
       <p>DataForge Systems was founded by a technologist with over 15 years in government, military, and enterprise IT — including a decade managing software inventory and compliance in some of the most security-conscious environments in the world. DoD networks, air-gapped systems, and zero-tolerance compliance requirements.</p>
       <p>That background is the foundation for everything we do. Our software solves problems we've personally fought with for years. Our AI work is grounded in practical, deployable solutions — not research experiments. And our consulting draws on hard-won experience navigating the gap between what technology promises and what mission-critical organizations actually need.</p>
       <p>We're building a technology company that stays close to the ground — one that ships real products, takes on real problems, and earns trust by delivering results.</p>
     </div>
-    <div class="about-stats reveal reveal-d1">
+    <div class="about-stats">
       <div class="stat-card">
         <div class="stat-number blue">15+</div>
         <div class="stat-label">Years in government, military, and enterprise IT — including DoD and air-gapped environments</div>
@@ -555,13 +556,13 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
 </section>
 
 <!-- CTA -->
-<div class="cta-banner reveal">
+<div class="cta-banner">
   <div>
     <h3>Have a problem that needs solving?</h3>
     <p>Whether it's a product question, a consulting engagement, or a custom AI project — we'd like to hear about it.</p>
   </div>
   <div class="cta-buttons">
-    <a href="/cdn-cgi/l/email-protection#2f4c40415b4e4c5b6f4b4e5b4e49405d484a5c565c5b4a425c014640" class="btn-primary">Get in touch &rarr;</a>
+    <a href="mailto:hello@dataforgesystems.io" class="btn-primary">Get in touch &rarr;</a>
     <a href="saip.html" class="btn-secondary">Explore SAIP</a>
   </div>
 </div>
@@ -587,10 +588,14 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
       </div>
       <div class="footer-col">
         <h5>Contact</h5>
-        <a href="/cdn-cgi/l/email-protection#a4c7cbcad0c5c7d0e4c0c5d0c5c2cbd6c3c1d7ddd7d0c1c9d78acdcb"><span class="__cf_email__" data-cfemail="c4a7abaab0a5a7b084a0a5b0a5a2abb6a3a1b7bdb7b0a1a9b7eaadab">[email&#160;protected]</span></a>
-        <a href="/cdn-cgi/l/email-protection#0b786a676e784b6f6a7f6a6d64796c6e7872787f6e6678256264"><span class="__cf_email__" data-cfemail="691a08050c1a290d081d080f061b0e0c1a101a1d0c041a470006">[email&#160;protected]</span></a>
+        <a href="mailto:hello@dataforgesystems.io">hello@dataforgesystems.io</a>
+        <a href="mailto:support@dataforgesystems.io">support@dataforgesystems.io</a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&copy; 20
+    <span>&copy; 2026 DataForge Systems LLC. All rights reserved.</span>
+  </div>
+</footer>
+</body>
+</html>
