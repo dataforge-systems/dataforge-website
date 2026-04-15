@@ -282,7 +282,7 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
 /* Comparison */
 .comparison {
   padding: 100px 2rem;
-  max-width: 900px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
 }
 .comparison h2 {
   text-align: center; font-size: 2.5rem; font-weight: 700;
@@ -293,15 +293,20 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
   text-align: center; color: var(--text-dim);
   font-size: 1.1rem; margin-bottom: 3rem;
 }
+.comp-table-wrapper {
+  overflow-x: auto;
+}
 .comp-table {
   width: 100%; border-collapse: separate;
   border-spacing: 0; border-radius: 16px;
   overflow: hidden; border: 1px solid var(--border);
+  min-width: 800px;
 }
 .comp-table thead th {
-  background: var(--bg-card); padding: 16px 20px;
-  text-align: left; font-weight: 600; font-size: 0.9rem;
+  background: var(--bg-card); padding: 14px 16px;
+  text-align: left; font-weight: 600; font-size: 0.8rem;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
 }
 .comp-table thead th:first-child { color: var(--text-dim); }
 .comp-table thead th.haul-col {
@@ -311,20 +316,20 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
   color: var(--text-dim); text-align: center;
 }
 .comp-table tbody td {
-  padding: 14px 20px; border-bottom: 1px solid var(--border);
-  font-size: 0.85rem;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
 }
 .comp-table tbody tr:last-child td { border-bottom: none; }
 .comp-table tbody td:first-child { color: var(--text-dim); }
-.comp-table tbody td.check { text-align: center; color: var(--accent); font-size: 1.1rem; }
-.comp-table tbody td.x { text-align: center; color: var(--text-muted); font-size: 1.1rem; }
+.comp-table tbody td.check { text-align: center; color: var(--accent); font-size: 1rem; }
+.comp-table tbody td.x { text-align: center; color: var(--text-muted); font-size: 1rem; }
 .comp-table tbody tr { background: var(--bg); transition: background 0.2s; }
 .comp-table tbody tr:hover { background: var(--bg-card); }
 
 /* Pricing */
 .pricing {
   padding: 100px 2rem;
-  max-width: 800px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   text-align: center;
 }
 .pricing h2 {
@@ -334,38 +339,61 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
 .pricing .section-sub {
   color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;
 }
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 .pricing-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 20px; padding: 3rem;
+  border-radius: 20px; padding: 2.5rem;
   text-align: center; position: relative;
-  max-width: 480px; margin: 0 auto;
+  display: flex; flex-direction: column;
+}
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-dim);
+}
+.pricing-card .popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #0a0a0a;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; padding: 6px 16px; border-radius: 20px;
 }
 .pricing-card .plan-name {
   font-size: 0.85rem; color: var(--accent);
   text-transform: uppercase; letter-spacing: 3px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+.pricing-card .plan-title {
+  font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
 }
 .pricing-card .price-row {
   display: flex; align-items: baseline; justify-content: center;
   gap: 4px; margin-bottom: 0.5rem;
 }
 .pricing-card .price {
-  font-family: var(--mono); font-size: 3rem; font-weight: 700;
+  font-family: var(--mono); font-size: 2.5rem; font-weight: 700;
 }
 .pricing-card .period { color: var(--text-dim); font-size: 1rem; }
 .pricing-card .price-alt {
-  color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2rem;
+  color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1.5rem;
 }
 .pricing-card .perks {
-  list-style: none; text-align: left; margin-bottom: 2rem;
+  list-style: none; text-align: left; margin-bottom: 2rem; flex: 1;
 }
 .pricing-card .perks li {
-  padding: 8px 0; font-size: 0.9rem; color: var(--text-dim);
+  padding: 8px 0; font-size: 0.85rem; color: var(--text-dim);
   display: flex; align-items: center; gap: 10px;
 }
 .pricing-card .perks li .perk-check { color: var(--accent); font-weight: 700; }
 .pricing-card .trial-note {
   font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;
+}
+.pricing-card .btn-primary, .pricing-card .btn-secondary {
+  width: 100%; justify-content: center;
+}
+.pricing-trial-note {
+  color: var(--text-dim); font-size: 0.9rem; margin-top: 2rem;
 }
 
 /* Footer */
@@ -421,6 +449,7 @@ footer {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   nav .nav-links { display: none; }
   .comp-table { font-size: 0.8rem; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
 }
 @media (max-width: 600px) {
   .hero-text h1 { font-size: 2rem; }
@@ -457,6 +486,7 @@ footer {
         The all-in-one iOS app for resellers. Find yard sales on a live map, scan items for instant eBay prices, list directly to eBay, track every mile for taxes, and see your real profit — all from your phone.
       </p>
       <div class="hero-badges">
+        <div class="badge"><div class="dot"></div> Flip Check pricing</div>
         <div class="badge"><div class="dot"></div> Live yard sale map</div>
         <div class="badge"><div class="dot"></div> Direct eBay listing</div>
         <div class="badge"><div class="dot"></div> GPS mileage tracking</div>
@@ -600,61 +630,99 @@ footer {
   <h2>One app. <em>Not five.</em></h2>
   <p class="section-sub">See how Haul compares to using separate apps for each part of your business.</p>
 
+  <div class="comp-table-wrapper">
   <table class="comp-table">
     <thead>
       <tr>
         <th>Feature</th>
         <th class="haul-col">Haul</th>
-        <th class="other-col">MileIQ</th>
+        <th class="other-col">ListEasier</th>
         <th class="other-col">Spadeberry</th>
-        <th class="other-col">Yard Sale Treasure Map</th>
+        <th class="other-col">MileIQ</th>
+        <th class="other-col">Yard Sale Finder</th>
+        <th class="other-col">Receipts</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td>Yard sale finder map</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td></tr>
-      <tr><td>Route optimization</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>AI item scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>eBay price lookup</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
-      <tr><td>Direct eBay listing</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
-      <tr><td>Batch listing</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
-      <tr><td>AI listing generator</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>Inventory management</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>GPS mileage tracking</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>Receipt scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>Tax reports (CSV/PDF)</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>Auto-relist & price drop</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
-      <tr><td>Profit tracking with eBay fees</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Yard sale finder map</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Route optimization</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>AI item scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>eBay price lookup</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Direct eBay listing</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Batch listing</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>AI listing generator</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Inventory management</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>GPS mileage tracking</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Receipt scanning</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td></tr>
+      <tr><td>Tax reports (CSV/PDF)</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="check">✓</td><td class="x">—</td><td class="check">✓</td></tr>
+      <tr><td>Auto-relist & price drop</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
+      <tr><td>Profit tracking with eBay fees</td><td class="check">✓</td><td class="check">✓</td><td class="x">—</td><td class="x">—</td><td class="x">—</td><td class="x">—</td></tr>
     </tbody>
   </table>
+  </div>
 </section>
 
 <!-- Pricing -->
 <section class="pricing" id="pricing">
-  <h2>Simple pricing. <em>Unlimited everything.</em></h2>
-  <p class="section-sub">No per-listing fees. No token system. One price, unlimited scans, listings, and tracking.</p>
+  <h2>Simple, transparent <em>pricing</em></h2>
+  <p class="section-sub">Choose the plan that fits your reselling volume. All plans include a 14-day free trial.</p>
 
-  <div class="pricing-card">
-    <div class="plan-name">Haul Pro</div>
-    <div class="price-row">
-      <span class="price">$19.99</span>
-      <span class="period">/month</span>
+  <div class="pricing-grid">
+    <!-- Pro -->
+    <div class="pricing-card featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Pro</div>
+      <div class="price-row">
+        <span class="price">$19.99</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="price-alt">or $179.99/year (save 25%)</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> 200 Flip Checks per month</li>
+        <li><span class="perk-check">✓</span> Unlimited eBay listings</li>
+        <li><span class="perk-check">✓</span> GPS mileage tracking</li>
+        <li><span class="perk-check">✓</span> Yard sale finder</li>
+        <li><span class="perk-check">✓</span> Route optimization</li>
+        <li><span class="perk-check">✓</span> Inventory management</li>
+      </ul>
+      <a href="#" class="btn-primary">Start 14-Day Free Trial</a>
+      <p class="trial-note">No credit card required</p>
     </div>
-    <div class="price-alt">or $179.99/year (save 25%)</div>
-    <ul class="perks">
-      <li><span class="perk-check">✓</span> Unlimited Flip Check scans</li>
-      <li><span class="perk-check">✓</span> Unlimited eBay listings</li>
-      <li><span class="perk-check">✓</span> AI listing generator</li>
-      <li><span class="perk-check">✓</span> Batch listing (up to 20 items)</li>
-      <li><span class="perk-check">✓</span> Auto-relist & auto price drop</li>
-      <li><span class="perk-check">✓</span> GPS mileage auto-tracking</li>
-      <li><span class="perk-check">✓</span> Receipt scanning</li>
-      <li><span class="perk-check">✓</span> Profit & loss reports</li>
-      <li><span class="perk-check">✓</span> CSV & PDF tax exports</li>
-      <li><span class="perk-check">✓</span> Yard sale finder & route optimizer</li>
-    </ul>
-    <a href="#" class="btn-primary" style="width:100%; justify-content: center;">Start 14-Day Free Trial</a>
-    <p class="trial-note">No credit card required. Cancel anytime.</p>
+
+    <!-- Business -->
+    <div class="pricing-card">
+      <div class="plan-name">Business</div>
+      <div class="price-row">
+        <span class="price">$49.99</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="price-alt">or $449.99/year (save 25%)</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> 1,000 Flip Checks per month</li>
+        <li><span class="perk-check">✓</span> Everything in Pro</li>
+        <li><span class="perk-check">✓</span> Built for high-volume resellers</li>
+      </ul>
+      <a href="#" class="btn-primary">Start 14-Day Free Trial</a>
+      <p class="trial-note">No credit card required</p>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="pricing-card">
+      <div class="plan-name">Enterprise</div>
+      <div class="price-row">
+        <span class="price">Custom</span>
+      </div>
+      <div class="price-alt">Contact us for pricing</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> Unlimited Flip Checks</li>
+        <li><span class="perk-check">✓</span> Everything in Business</li>
+        <li><span class="perk-check">✓</span> Dedicated support</li>
+      </ul>
+      <a href="mailto:sales@dataforgesystems.io" class="btn-secondary">Contact Us</a>
+    </div>
   </div>
+
+  <p class="pricing-trial-note">All plans include a 14-day free trial. No credit card required.</p>
 </section>
 
 <!-- Footer -->
