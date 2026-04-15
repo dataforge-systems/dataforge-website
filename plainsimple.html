@@ -165,12 +165,13 @@ nav {
 .priv-check{color:var(--accent);font-weight:700;font-size:1rem}
 
 /* ─── PRICING ─── */
-.pricing{padding:4rem 2rem 6rem;max-width:700px;margin:0 auto;text-align:center}
-.price-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.pricing{padding:4rem 2rem 6rem;max-width:1000px;margin:0 auto;text-align:center}
+.price-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
 .price-card{
   padding:2rem;border-radius:var(--radius-lg);
   background:var(--bg-elevated);border:1px solid var(--border);
   text-align:left;transition:all .3s ease;
+  display:flex;flex-direction:column;
 }
 .price-card.featured{border-color:var(--accent-border)}
 .price-card:hover{transform:translateY(-2px)}
@@ -178,13 +179,13 @@ nav {
 .price-card .price{font-size:2rem;font-weight:700;font-family:var(--font-mono);margin:.8rem 0 .3rem}
 .price-card .price span{font-size:.85rem;font-weight:400;color:var(--text-muted)}
 .price-card .price-desc{color:var(--text-secondary);font-size:.82rem;margin-bottom:1.2rem}
-.price-card ul{list-style:none;padding:0;margin:0 0 1.5rem}
+.price-card ul{list-style:none;padding:0;margin:0 0 1.5rem;flex:1}
 .price-card li{
   font-size:.82rem;color:var(--text-secondary);padding:.3rem 0;
   display:flex;align-items:start;gap:.5rem;
 }
 .price-card li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
-.price-card .btn-primary{width:100%;justify-content:center;font-size:.85rem;padding:.6rem}
+.price-card .btn-primary{width:100%;justify-content:center;font-size:.85rem;padding:.6rem;margin-top:auto}
 
 /* ─── FOOTER ─── */
 footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:1120px;margin:0 auto}
@@ -374,7 +375,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
   <div class="price-cards">
     <div class="price-card">
       <h4>Free</h4>
-      <div class="price">$0 <span></span></div>
+      <div class="price">$0</div>
       <div class="price-desc">Try it out, no strings attached</div>
       <ul>
         <li>3 free scans</li>
@@ -399,11 +400,8 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
       </ul>
       <a href="#" class="btn-primary">Get Pro Monthly</a>
     </div>
-  </div>
-
-  <div class="price-cards" style="margin-top:1rem">
     <div class="price-card featured">
-      <h4>Pro Annual <span style="font-size:.72rem;font-weight:500;color:var(--accent);background:var(--accent-dim);padding:.2rem .5rem;border-radius:4px;margin-left:.5rem">Save 52%</span></h4>
+      <h4>Pro Annual <span style="font-size:.72rem;font-weight:500;color:var(--accent);background:var(--accent-dim);padding:.2rem .5rem;border-radius:4px;margin-left:.5rem">Save 44%</span></h4>
       <div class="price">$39.99 <span>/ year</span></div>
       <div class="price-desc">Just $3.33/mo — best value</div>
       <ul>
