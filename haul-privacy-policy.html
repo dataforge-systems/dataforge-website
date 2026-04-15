@@ -17,7 +17,7 @@
 <body>
 
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: April 7, 2026</p>
+<p class="updated">Last updated: April 15, 2026</p>
 
 <div class="highlight">
   <strong>The short version:</strong> Haul collects your location to track business miles and find nearby sales. Your data stays on your device. We never sell your data. Ever.
@@ -33,7 +33,7 @@
   <li><strong>Trip and expense records</strong> — Trips, expenses, and receipt data you log are stored locally on your device using Apple's SwiftData framework. This data never leaves your device unless you explicitly export it.</li>
   <li><strong>Yard sale submissions</strong> — If you submit a yard sale listing, the sale details (title, address, date, time, description, photos) are stored in our Supabase database so other Haul users can see it on the map. Submissions are associated with an anonymous user ID, not your name or any personal information.</li>
   <li><strong>Anonymous user ID</strong> — Haul creates an anonymous identifier for your account so you can submit and verify sales. This ID is not linked to your name, email, Apple ID, or any other personal information.</li>
-  <li><strong>Subscription status</strong> — Whether you are a free or Pro user, managed through Apple's App Store.</li>
+  <li><strong>Subscription status</strong> — Your subscription tier (Pro, Business, or Enterprise), managed through Apple's App Store.</li>
 </ul>
 
 <h2>What we do NOT collect</h2>
@@ -51,6 +51,10 @@
 <p>When you use the Scan Sale Info or Flip Check features, your photo is sent securely over HTTPS to our Supabase Edge Function, which forwards it to Anthropic's Claude AI API for processing. The result is returned to your device and displayed. The image is not stored by Haul or on any server we control.</p>
 <p>When you scan a receipt, the image is processed locally on your device using Apple's Vision framework. Receipt photos you choose to save are stored locally on your device only.</p>
 <p>Anthropic processes images solely to generate the requested response. Their data handling is governed by the <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a>.</p>
+<p>When you use the Generate Listing feature, your item details and photos are sent securely over HTTPS to our Supabase Edge Function, which forwards them to Anthropic's Claude AI API to generate an eBay listing title, description, and category suggestions. The generated content is returned to your device. Item details are not stored on any server we control.</p>
+
+<h2>eBay integration</h2>
+<p>If you choose to connect your eBay account, Haul uses eBay's OAuth authentication to securely link your account. Your eBay OAuth tokens are stored in our Supabase database so the app can post listings and check sales on your behalf. We never see or store your eBay password — only the OAuth tokens that eBay provides. You can disconnect your eBay account at any time from within the app, which deletes your stored tokens from our database.</p>
 
 <h2>Location data and background tracking</h2>
 <p>Haul requests "Always On" location permission so it can detect trips automatically in the background while you drive. This is the core feature of the app — without it, you would need to manually start and stop every trip.</p>
@@ -75,7 +79,7 @@
 <ul>
   <li><strong>Supabase</strong> — hosts our community sale listings database. <a href="https://supabase.com/privacy">Supabase Privacy Policy</a></li>
   <li><strong>Anthropic</strong> — processes images for the Scan Sale Info and Flip Check features. <a href="https://www.anthropic.com/privacy">Anthropic Privacy Policy</a></li>
-  <li><strong>eBay</strong> — provides sold listing data for the Flip Check feature. <a href="https://www.ebay.com/help/policies/member-behaviour-policies/user-privacy-notice-privacy-policy">eBay Privacy Policy</a></li>
+  <li><strong>eBay</strong> — provides pricing data for the Flip Check feature and enables direct listing posting and sales tracking for connected accounts. <a href="https://www.ebay.com/help/policies/member-behaviour-policies/user-privacy-notice-privacy-policy">eBay Privacy Policy</a></li>
   <li><strong>Apple Maps</strong> — used for route planning and geocoding. <a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li>
 </ul>
 
