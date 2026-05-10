@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PinVault — for Disney pin collectors</title>
+<meta name="description" content="The iOS app for Disney pin collectors. Scan, identify, and authenticate pins. Manage your collection. Find trades. All in one place.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="PinVault — for Disney pin collectors">
+<meta property="og:description" content="The iOS app for Disney pin collectors. Scan, identify, and authenticate pins. Manage your collection. Find trades.">
+<meta property="og:url" content="https://dataforgesystems.io/pinvault">
+<meta property="og:image" content="https://dataforgesystems.io/pinvault/assets/pinvault-appicon.png">
+<meta property="og:site_name" content="PinVault">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PinVault — for Disney pin collectors">
+<meta name="twitter:description" content="The iOS app for Disney pin collectors. Scan, identify, and authenticate pins. Manage your collection. Find trades.">
+<meta name="twitter:image" content="https://dataforgesystems.io/pinvault/assets/pinvault-appicon.png">
+
+<link rel="icon" href="assets/pinvault-appicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/pinvault-appicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --border: #1e1e1e;
+  --border-accent: #4A9EFF;
+  --accent: #4A9EFF;
+  --accent-dim: rgba(74, 158, 255, 0.15);
+  --accent-glow: rgba(74, 158, 255, 0.3);
+  --text: #f0f0f0;
+  --text-dim: #888;
+  --text-muted: #555;
+  --warn: #f59e0b;
+  --font: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav .brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--text);
+  font-weight: 700; font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+nav .brand .wordmark {
+  font-family: var(--font);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+nav .brand .wordmark .vault {
+  color: var(--accent);
+}
+nav .nav-links { display: flex; gap: 2rem; align-items: center; }
+nav .nav-links a {
+  color: var(--text-dim); text-decoration: none;
+  font-size: 0.9rem; font-weight: 500;
+  transition: color 0.2s;
+}
+nav .nav-links a:hover { color: var(--accent); }
+
+/* Coming Soon pill — non-interactive, dark with subtle blue accent */
+.coming-soon-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 26px;
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--accent-dim);
+  border-radius: 100px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none;
+  cursor: default; user-select: none;
+  letter-spacing: 0.01em;
+}
+.coming-soon-pill .pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  animation: pillPulse 2s ease-in-out infinite;
+}
+.coming-soon-pill.compact {
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  gap: 8px;
+}
+.coming-soon-pill.compact .pulse-dot {
+  width: 6px; height: 6px;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+@keyframes pillPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px 2rem 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center;
+}
+.hero-text h1 {
+  font-size: 3.5rem; font-weight: 700; line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.hero-text h1 em {
+  font-style: italic; color: var(--accent);
+}
+.hero-text .subtitle {
+  font-size: 1.2rem; color: var(--text-dim);
+  line-height: 1.7; margin-bottom: 0.75rem; max-width: 500px;
+}
+.hero-text .disney-tag {
+  font-size: 0.78rem; color: var(--text-muted);
+  margin-bottom: 2rem; font-style: italic;
+}
+.hero-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+  margin-bottom: 2.5rem;
+}
+.btn-secondary {
+  background: transparent; color: var(--text);
+  padding: 14px 28px; border-radius: 100px;
+  font-weight: 600; font-size: 0.95rem;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); transition: all 0.3s;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats {
+  display: flex; gap: 2.5rem; padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+.hero-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.hero-stat .stat-value {
+  font-family: var(--mono);
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.hero-stat .stat-label {
+  font-size: 0.78rem; color: var(--text-dim);
+}
+
+/* Phone mockup — aspect-ratio matches iPhone 16 Pro Max screenshots (1320x2868). */
+/* object-fit: contain prevents cropping if a future screenshot has a different ratio. */
+.hero-visual {
+  display: flex; justify-content: center; align-items: center;
+  position: relative;
+}
+.phone-frame {
+  width: 280px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  border: 3px solid #333;
+  padding: 12px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px var(--accent-dim);
+}
+.phone-notch {
+  width: 120px; height: 28px;
+  background: #0a0a0a; border-radius: 0 0 16px 16px;
+  margin: 0 auto 12px; position: relative; z-index: 2;
+}
+.phone-screen {
+  width: 100%;
+  aspect-ratio: 1320 / 2868;
+  background: var(--bg);
+  border-radius: 28px;
+  overflow: hidden;
+  padding: 0;
+}
+.phone-screen img.screen-img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Pipeline */
+.pipeline {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.pipeline h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.pipeline h2 em { color: var(--accent); font-style: italic; }
+.pipeline .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 4rem; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.pipeline-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-radius: 16px; overflow: hidden;
+}
+.pipeline-step {
+  background: var(--bg-card); padding: 2rem;
+  text-align: center; transition: background 0.3s;
+}
+.pipeline-step:hover { background: var(--bg-card-hover); }
+.pipeline-step .step-num {
+  font-family: var(--mono); font-size: 0.75rem;
+  color: var(--accent); margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+.pipeline-step .step-icon {
+  font-size: 2rem; margin-bottom: 1rem;
+}
+.pipeline-step h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.pipeline-step p {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.55;
+}
+
+/* Gallery — three phone mockups, each with an iOS screenshot */
+.gallery {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.gallery h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.gallery h2 em { color: var(--accent); font-style: italic; }
+.gallery .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 4rem; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-items: center;
+  align-items: start;
+}
+.gallery-item {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 0;
+}
+.gallery-item .phone-frame { width: 240px; }
+.gallery-item figcaption {
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--text); letter-spacing: 0.02em;
+}
+
+/* Features */
+.features {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.features h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.features h2 em { color: var(--accent); font-style: italic; }
+.features .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 4rem; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.feature-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border); border-radius: 16px; overflow: hidden;
+}
+.feature-card {
+  background: var(--bg-card); padding: 2rem;
+  transition: background 0.3s;
+}
+.feature-card:hover { background: var(--bg-card-hover); }
+.feature-card .feat-icon {
+  font-size: 1.5rem; margin-bottom: 1rem;
+  width: 48px; height: 48px;
+  background: var(--accent-dim); border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.feature-card h3 {
+  font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+}
+.feature-card p {
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;
+}
+
+/* Comparison */
+.comparison {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.comparison h2 {
+  text-align: center; font-size: 2.5rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.comparison h2 em { color: var(--accent); font-style: italic; }
+.comparison .section-sub {
+  text-align: center; color: var(--text-dim);
+  font-size: 1.1rem; margin-bottom: 3rem;
+}
+.comp-table-wrapper { overflow-x: auto; }
+.comp-table {
+  width: 100%; border-collapse: separate;
+  border-spacing: 0; border-radius: 16px;
+  overflow: hidden; border: 1px solid var(--border);
+}
+.comp-table thead th {
+  background: var(--bg-card); padding: 14px 16px;
+  text-align: left; font-weight: 600; font-size: 0.82rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.comp-table thead th:first-child { color: var(--text-dim); }
+.comp-table thead th.pin-col {
+  color: var(--accent); text-align: center;
+}
+.comp-table thead th.other-col {
+  color: var(--text-dim); text-align: center;
+}
+.comp-table tbody td {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.comp-table tbody td:first-child { color: var(--text-dim); }
+.comp-table tbody td.check { text-align: center; color: var(--accent); font-size: 1rem; font-weight: 700; }
+.comp-table tbody td.x { text-align: center; color: var(--text-muted); font-size: 1rem; }
+.comp-table tbody td.metric { text-align: center; font-family: var(--mono); font-size: 0.8rem; color: var(--text-dim); }
+.comp-table tbody td.metric.pin { color: var(--accent); font-weight: 700; }
+.comp-table tbody tr { background: var(--bg); transition: background 0.2s; }
+.comp-table tbody tr:hover { background: var(--bg-card); }
+
+/* Pricing */
+.pricing {
+  padding: 100px 2rem;
+  max-width: 1200px; margin: 0 auto;
+  text-align: center;
+}
+.pricing h2 {
+  font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.pricing h2 em { color: var(--accent); font-style: italic; }
+.pricing .section-sub {
+  color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;
+}
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.pricing-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 2.5rem;
+  text-align: center; position: relative;
+  display: flex; flex-direction: column;
+}
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-dim);
+}
+.pricing-card .popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #0a0a0a;
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; padding: 6px 16px; border-radius: 20px;
+}
+.pricing-card .plan-name {
+  font-size: 0.85rem; color: var(--accent);
+  text-transform: uppercase; letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+.pricing-card .plan-title {
+  font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
+}
+.pricing-card .price-row {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 4px; margin-bottom: 0.5rem;
+}
+.pricing-card .price {
+  font-family: var(--mono); font-size: 2.5rem; font-weight: 700;
+}
+.pricing-card .period { color: var(--text-dim); font-size: 1rem; }
+.pricing-card .price-alt {
+  color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1.5rem;
+}
+.pricing-card .perks {
+  list-style: none; text-align: left; margin-bottom: 2rem; flex: 1;
+}
+.pricing-card .perks li {
+  padding: 8px 0; font-size: 0.85rem; color: var(--text-dim);
+  display: flex; align-items: flex-start; gap: 10px; line-height: 1.5;
+}
+.pricing-card .perks li .perk-check {
+  color: var(--accent); font-weight: 700; flex-shrink: 0;
+}
+.pricing-card .coming-soon-pill {
+  width: 100%; justify-content: center;
+}
+.pricing-savings-note {
+  color: var(--text-dim); font-size: 0.9rem; margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+  padding: 60px 2rem 30px;
+  border-top: 1px solid var(--border);
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+.footer-brand .logo-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1rem;
+}
+.footer-brand .wordmark {
+  font-weight: 700; font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+.footer-brand .wordmark .vault { color: var(--accent); }
+.footer-brand p { color: var(--text-dim); font-size: 0.85rem; max-width: 320px; line-height: 1.6; }
+.footer-col h4 {
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+.footer-col a {
+  display: block; color: var(--text-muted);
+  text-decoration: none; font-size: 0.85rem;
+  padding: 4px 0; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom {
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between;
+  color: var(--text-muted); font-size: 0.8rem;
+  flex-wrap: wrap; gap: 1rem;
+}
+
+/* Disney non-affiliation disclaimer — required, prominent enough to be legally clear, quiet enough to not dominate */
+.disney-disclaimer {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.015);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .pipeline-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-text .subtitle { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; flex-wrap: wrap; gap: 1.75rem; }
+  .hero-visual { margin-top: 3rem; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  nav .nav-links a:not(.coming-soon-pill) { display: none; }
+  .comp-table { font-size: 0.8rem; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto 1.5rem; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 100px 1.25rem 60px; }
+  .hero-text h1 { font-size: 2.25rem; }
+  .pipeline-steps { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .pricing-card { padding: 2rem; }
+  .disney-disclaimer { font-size: 0.72rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/pinvault" class="brand" aria-label="PinVault home">
+    <span class="wordmark">PIN<span class="vault">VAULT</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <span class="coming-soon-pill compact" role="status" aria-label="Coming to the App Store">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      Coming to the App Store
+    </span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Scan. Identify.<br><em>Trade.</em></h1>
+      <p class="subtitle">
+        The iOS app for Disney pin collectors. Built for collectors, by a collector.
+      </p>
+      <p class="disney-tag">Not affiliated with The Walt Disney Company</p>
+
+      <div class="hero-actions">
+        <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          Coming to the App Store
+        </span>
+        <a href="#features" class="btn-secondary">See Features →</a>
+      </div>
+
+      <div class="hero-stats">
+        <!-- TODO: verify "110,000+" matches current PIN&POP-licensed catalog size before commit -->
+        <div class="hero-stat">
+          <span class="stat-value">110,000+</span>
+          <span class="stat-label">Pins in catalog</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-value">AI</span>
+          <span class="stat-label">Powered scanner</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-value">By collectors</span>
+          <span class="stat-label">For collectors</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="assets/screenshots/home.png" alt="PinVault home screen on iPhone" class="screen-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline -->
+<section class="pipeline" id="pipeline">
+  <h2>From shelf to <em>collection</em> in seconds</h2>
+  <p class="section-sub">Identify, catalog, authenticate, and trade — without juggling a notebook, a forum, and three different apps.</p>
+
+  <div class="pipeline-steps">
+    <div class="pipeline-step">
+      <div class="step-num">01</div>
+      <div class="step-icon">📷</div>
+      <h3>Scan</h3>
+      <p>Point your camera at any pin. Our AI identifies it against the catalog instantly.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">02</div>
+      <div class="step-icon">📚</div>
+      <h3>Catalog</h3>
+      <p>Identified pins are added to your collection automatically — series, edition, year, and rarity included.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">03</div>
+      <div class="step-icon">🛡️</div>
+      <h3>Authenticate</h3>
+      <p>AI flags potential counterfeits for your review with a banded confidence assessment. Guidance, not a guarantee — your judgment is final.</p>
+    </div>
+    <div class="pipeline-step">
+      <div class="step-num">04</div>
+      <div class="step-icon">🤝</div>
+      <h3>Trade</h3>
+      <p>Find collectors who have what you want and want what you have. Direct messaging to coordinate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="gallery" id="gallery">
+  <h2>See it in <em>action</em></h2>
+  <p class="section-sub">Three screens, no fluff. The whole pin-collector workflow in your pocket.</p>
+  <div class="gallery-grid">
+    <figure class="gallery-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="assets/screenshots/home.png" alt="PinVault home screen on iPhone" class="screen-img">
+        </div>
+      </div>
+      <figcaption>Home</figcaption>
+    </figure>
+    <figure class="gallery-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="assets/screenshots/collection.png" alt="PinVault collection list view on iPhone" class="screen-img">
+        </div>
+      </div>
+      <figcaption>Your Collection</figcaption>
+    </figure>
+    <figure class="gallery-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="assets/screenshots/scan.png" alt="PinVault scan and identify view on iPhone" class="screen-img">
+        </div>
+      </div>
+      <figcaption>Identify Pins</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <h2>Everything a pin collector <em>actually needs</em></h2>
+  <p class="section-sub">Built by a collector who got tired of forum threads, spreadsheets, and screenshots.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feat-icon">📷</div>
+      <h3>AI Pin Scanner</h3>
+      <p>Point and identify any Disney pin against the catalog. Match in seconds — no manual entry, no guesswork.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📚</div>
+      <h3><!-- TODO: verify catalog size -->110,000+ Pin Catalog</h3>
+      <p>Reference data licensed from PIN&amp;POP, augmented with curated community contributions. The largest catalog any pin app ships with.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🛡️</div>
+      <h3>Authentication Flagging</h3>
+      <p>AI flags pins for review with a banded confidence assessment — High, Medium, Low. Probability-based guidance, not a verification service.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🗂️</div>
+      <h3>Collection Management</h3>
+      <p>Track sets, mark pins as ISO or available for trade, manage condition notes, and see set completion at a glance.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🔄</div>
+      <h3>In-App Trade Matching</h3>
+      <p>Match with collectors whose haves overlap your wants — and vice versa. In-app messaging to work out the details.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">💰</div>
+      <h3>Market Price Lookups</h3>
+      <p>Recent listing prices from public marketplaces, so you know what a pin is going for before you trade or value a set.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🧠</div>
+      <h3>Pin Trivia</h3>
+      <p>Earn badges and credits answering pin-history trivia. Learn the catalog while you play.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">👁️</div>
+      <h3>Built-in Moderation</h3>
+      <p>Reports, repeat-infringer enforcement, and active moderation keep the catalog clean and the trade community honest.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="comparison" id="compare">
+  <h2>One app. <em>Not five.</em></h2>
+  <p class="section-sub">How PinVault compares to the patchwork of apps pin collectors normally string together.</p>
+
+  <div class="comp-table-wrapper">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th class="pin-col">PinVault</th>
+        <th class="other-col">Other Pin Apps</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>AI Identification</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Authentication Flagging</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Trading</td><td class="check">✓</td><td class="x">—</td></tr>
+      <tr><td>Collection Management</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <!-- TODO: verify "110,000+" matches current PIN&POP-licensed catalog size before commit -->
+      <tr><td>Catalog Size</td><td class="metric pin">110,000+</td><td class="metric">Limited</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!--
+  PLACEHOLDER PRICING — these tiers and prices are subject to revision before App Store launch.
+  Confirm with user before any public-facing reference.
+  Math check (current values):
+    Collector monthly:   $7.99 × 12 = $95.88/yr;  annual $59.99  → save 37.4%
+    Pro monthly:        $14.99 × 12 = $179.88/yr; annual $119.99 → save 33.3%
+  "Up to 37%" framing is accurate across both tiers.
+-->
+<section class="pricing" id="pricing">
+  <h2>Simple, transparent <em>pricing</em></h2>
+  <p class="section-sub">Start free. Upgrade when you've outgrown it.</p>
+
+  <div class="pricing-grid">
+    <!-- Free -->
+    <div class="pricing-card">
+      <div class="plan-name">Free</div>
+      <div class="price-row">
+        <span class="price">$0</span>
+      </div>
+      <div class="price-alt">No card required</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> Limited scans per month</li>
+        <li><span class="perk-check">✓</span> Basic collection management</li>
+        <li><span class="perk-check">✓</span> Read-only catalog browsing</li>
+      </ul>
+      <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Coming to the App Store
+      </span>
+    </div>
+
+    <!-- Collector -->
+    <div class="pricing-card featured">
+      <div class="popular-badge">Most Popular</div>
+      <div class="plan-name">Collector</div>
+      <div class="price-row">
+        <span class="price">$7.99</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="price-alt">or $59.99/year (save 37%)</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> Unlimited scans</li>
+        <li><span class="perk-check">✓</span> Full collection management</li>
+        <li><span class="perk-check">✓</span> Authentication flagging</li>
+        <li><span class="perk-check">✓</span> Trade matching &amp; messaging</li>
+        <li><span class="perk-check">✓</span> Market price lookups</li>
+      </ul>
+      <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Coming to the App Store
+      </span>
+    </div>
+
+    <!-- Pro -->
+    <div class="pricing-card">
+      <div class="plan-name">Pro</div>
+      <div class="price-row">
+        <span class="price">$14.99</span>
+        <span class="period">/month</span>
+      </div>
+      <div class="price-alt">or $119.99/year (save 33%)</div>
+      <ul class="perks">
+        <li><span class="perk-check">✓</span> Everything in Collector</li>
+        <li><span class="perk-check">✓</span> Advanced trade tools</li>
+        <li><span class="perk-check">✓</span> Set completion view</li>
+        <li><span class="perk-check">✓</span> Priority support</li>
+      </ul>
+      <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Coming to the App Store
+      </span>
+    </div>
+  </div>
+
+  <p class="pricing-savings-note">Annual saves up to 37% vs monthly.</p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-row">
+        <span class="wordmark">PIN<span class="vault">VAULT</span></span>
+      </div>
+      <p>Built by DataForge Systems LLC. The iOS app for Disney pin collectors who want to scan, identify, authenticate, and trade — without juggling a notebook, a forum, and three different apps.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#pipeline">How it works</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#features">Features</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/pinvault/legal/dmca">Copyright &amp; DMCA</a>
+      <a href="/pinvault/legal/terms">Terms of Service</a>
+      <a href="/pinvault/legal/privacy">Privacy Policy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="https://dataforgesystems.io">DataForge Systems</a>
+      <a href="mailto:support@dataforgesystems.io">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DataForge Systems LLC. All rights reserved.</span>
+    <span>Last updated: May 9, 2026</span>
+    <span>Made in Huntsville, Alabama</span>
+  </div>
+</footer>
+
+<!-- Disney non-affiliation disclaimer (verbatim per user) -->
+<div class="disney-disclaimer">
+  PinVault is not affiliated with, authorized by, or endorsed by The Walt Disney Company, Disney Enterprises, Inc., or any of its subsidiaries or affiliates. All Disney artwork, copyrights, trademarks, service marks, and trade names are proprietary to Disney Enterprises, Inc. or its subsidiary, affiliated and related companies. References to Disney pins are for descriptive and informational purposes only.
+</div>
+
+</body>
+</html>

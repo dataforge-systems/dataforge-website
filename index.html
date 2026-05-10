@@ -29,6 +29,8 @@
   --haul-dim: rgba(34,197,94,0.12);
   --ps-accent: #a78bfa;
   --ps-dim: rgba(167,139,250,0.12);
+  --pinvault-accent: #4A9EFF;
+  --pinvault-dim: rgba(74,158,255,0.12);
   --services-accent: #f59e0b;
   --services-dim: rgba(245,158,11,0.12);
   --radius: 12px;
@@ -158,7 +160,7 @@ nav {
 
 /* ─── PRODUCTS ─── */
 .products{padding:4rem 2rem 6rem;max-width:1120px;margin:0 auto}
-.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
 
 .product-card {
   position:relative;border-radius:var(--radius-lg);overflow:hidden;
@@ -170,6 +172,7 @@ nav {
 .product-card.saip:hover{border-color:rgba(59,130,246,0.3);box-shadow:0 8px 40px rgba(59,130,246,0.08)}
 .product-card.haul:hover{border-color:rgba(34,197,94,0.3);box-shadow:0 8px 40px rgba(34,197,94,0.08)}
 .product-card.ps:hover{border-color:rgba(167,139,250,0.3);box-shadow:0 8px 40px rgba(167,139,250,0.08)}
+.product-card.pinvault:hover{border-color:rgba(74,158,255,0.3);box-shadow:0 8px 40px rgba(74,158,255,0.08)}
 
 .card-visual {
   position:relative;padding:2.5rem 2rem 2rem;
@@ -179,6 +182,7 @@ nav {
 .saip .card-visual{background:linear-gradient(135deg, #0f1528 0%, #0c0f1a 100%)}
 .haul .card-visual{background:linear-gradient(135deg, #0f1a14 0%, #0f1410 100%)}
 .ps .card-visual{background:linear-gradient(135deg, #150f28 0%, #110c1a 100%)}
+.pinvault .card-visual{background:linear-gradient(135deg, #0c1426 0%, #0a0e18 100%)}
 
 /* SAIP visual — terminal */
 .saip-visual {
@@ -258,6 +262,30 @@ nav {
 }
 .ps-result .hi{color:rgba(167,139,250,0.8)}
 
+/* PinVault visual — pin grid (suggesting a vault of catalog'd pins) */
+.pinvault-visual{position:absolute;inset:0;pointer-events:none;opacity:.55;display:flex;align-items:center;justify-content:center}
+.pin-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:70%;max-width:200px}
+.pin-cell{aspect-ratio:1;border-radius:50%;background:rgba(74,158,255,0.15);border:1px solid rgba(74,158,255,0.25)}
+.pin-cell.highlight{background:rgba(74,158,255,0.5);box-shadow:0 0 12px rgba(74,158,255,0.4);animation:pinPulse 3s ease-in-out infinite}
+.pin-cell.highlight:nth-of-type(7){animation-delay:1s}
+.pin-cell.highlight:nth-of-type(14){animation-delay:2s}
+@keyframes pinPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.15)}}
+
+/* Coming Soon badge — used on PinVault product card */
+.coming-soon-badge{
+  position:absolute;top:1.2rem;left:1.2rem;
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;
+  background:rgba(10,10,15,0.85);backdrop-filter:blur(8px);
+  border:1px solid rgba(74,158,255,0.3);
+  border-radius:100px;font-size:.68rem;font-weight:600;
+  color:#4A9EFF;z-index:2;letter-spacing:.02em;
+}
+.coming-soon-badge .dot-pv{
+  width:6px;height:6px;border-radius:50%;
+  background:#4A9EFF;animation:pulse 2s infinite;
+}
+
 .card-icon {
   width:44px;height:44px;border-radius:12px;
   display:flex;align-items:center;justify-content:center;
@@ -268,6 +296,7 @@ nav {
 .saip .card-icon{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(59,130,246,0.2)}
 .haul .card-icon{background:var(--haul-dim);color:var(--haul-accent);border:1px solid rgba(34,197,94,0.2)}
 .ps .card-icon{background:var(--ps-dim);color:var(--ps-accent);border:1px solid rgba(167,139,250,0.2)}
+.pinvault .card-icon{background:var(--pinvault-dim);color:var(--pinvault-accent);border:1px solid rgba(74,158,255,0.2)}
 
 .card-body{padding:1.6rem 2rem 1.8rem;flex:1;display:flex;flex-direction:column}
 .card-body h3{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.25rem}
@@ -287,6 +316,7 @@ nav {
 .saip .card-cta{color:var(--accent)}
 .haul .card-cta{color:var(--haul-accent)}
 .ps .card-cta{color:var(--ps-accent)}
+.pinvault .card-cta{color:var(--pinvault-accent)}
 .card-cta .arrow-r{transition:transform .2s}
 .product-card:hover .card-cta .arrow-r{transform:translateX(4px)}
 
@@ -346,7 +376,6 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
 /* ─── RESPONSIVE ─── */
 @media(max-width:900px){
   .product-grid{grid-template-columns:1fr 1fr}
-  .product-card.ps{grid-column:1 / -1}
 }
 @media(max-width:768px){
   nav{padding:0 1.2rem}
@@ -385,7 +414,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
   </a>
   <div class="nav-links">
     <a href="#what-we-do">What We Do</a>
-    <div class="nav-dropdown"><a href="#products">Products</a><div class="nav-dropdown-menu"><a href="saip.html">SAIP</a><a href="haul.html">Haul</a><a href="plainsimple.html">Plain Simple</a></div></div>
+    <div class="nav-dropdown"><a href="#products">Products</a><div class="nav-dropdown-menu"><a href="saip.html">SAIP</a><a href="haul.html">Haul</a><a href="plainsimple.html">Plain Simple</a><a href="/pinvault">PinVault</a></div></div>
     <a href="#about">About</a>
     <a href="mailto:support@dataforgesystems.io">Contact</a>
     <a href="saip.html" class="cta">Try SAIP Free</a>
@@ -520,6 +549,33 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
         <div class="card-cta">Learn more <span class="arrow-r">&rarr;</span></div>
       </div>
     </a>
+
+    <!-- PINVAULT -->
+    <a href="/pinvault" class="product-card pinvault">
+      <div class="card-visual">
+        <div class="pinvault-visual">
+          <div class="pin-grid">
+            <div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell highlight"></div><div class="pin-cell"></div><div class="pin-cell"></div>
+            <div class="pin-cell"></div><div class="pin-cell highlight"></div><div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell"></div>
+            <div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell highlight"></div><div class="pin-cell"></div>
+            <div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell"></div><div class="pin-cell"></div>
+          </div>
+        </div>
+        <div class="coming-soon-badge"><span class="dot-pv"></span>Coming Soon</div>
+        <div class="card-icon">P</div>
+      </div>
+      <div class="card-body">
+        <h3>PinVault</h3>
+        <div class="card-tagline">For Disney pin collectors</div>
+        <div class="card-tags">
+          <span>iOS</span>
+          <span>AI Scanning</span>
+          <span>Authentication</span>
+        </div>
+        <p class="card-desc">Scan, identify, authenticate, and trade Disney pins. AI-powered identification against a 110,000+ pin catalog.</p>
+        <div class="card-cta">Learn more <span class="arrow-r">&rarr;</span></div>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -580,6 +636,7 @@ footer{padding:3rem 2rem;border-top:1px solid var(--border-subtle);max-width:112
         <a href="saip.html">SAIP</a>
         <a href="haul.html">Haul</a>
         <a href="plainsimple.html">Plain Simple</a>
+        <a href="/pinvault">PinVault</a>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
