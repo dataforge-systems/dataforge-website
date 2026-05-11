@@ -393,8 +393,8 @@ nav .nav-links a:hover { color: var(--accent); }
   color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;
 }
 .pricing-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  max-width: 800px; margin: 0 auto 1.5rem;
 }
 .pricing-card {
   background: var(--bg-card); border: 1px solid var(--border);
@@ -446,6 +446,11 @@ nav .nav-links a:hover { color: var(--accent); }
 }
 .pricing-savings-note {
   color: var(--text-dim); font-size: 0.9rem; margin-top: 2rem;
+}
+.pricing-table-heading {
+  font-size: 1.25rem; font-weight: 600;
+  margin: 3rem 0 1.25rem;
+  letter-spacing: -0.01em;
 }
 
 /* Footer */
@@ -566,9 +571,8 @@ footer {
       </div>
 
       <div class="hero-stats">
-        <!-- TODO: verify "110,000+" matches current PIN&POP-licensed catalog size before commit -->
         <div class="hero-stat">
-          <span class="stat-value">110,000+</span>
+          <span class="stat-value">99,000+</span>
           <span class="stat-label">Pins in catalog</span>
         </div>
         <div class="hero-stat">
@@ -674,7 +678,7 @@ footer {
     </div>
     <div class="feature-card">
       <div class="feat-icon">📚</div>
-      <h3><!-- TODO: verify catalog size -->110,000+ Pin Catalog</h3>
+      <h3>99,000+ Pin Catalog</h3>
       <p>Reference data licensed from PIN&amp;POP, augmented with curated community contributions. The largest catalog any pin app ships with.</p>
     </div>
     <div class="feature-card">
@@ -729,21 +733,12 @@ footer {
       <tr><td>Authentication Flagging</td><td class="check">✓</td><td class="x">—</td></tr>
       <tr><td>Trading</td><td class="check">✓</td><td class="x">—</td></tr>
       <tr><td>Collection Management</td><td class="check">✓</td><td class="check">✓</td></tr>
-      <!-- TODO: verify "110,000+" matches current PIN&POP-licensed catalog size before commit -->
-      <tr><td>Catalog Size</td><td class="metric pin">110,000+</td><td class="metric">Limited</td></tr>
+      <tr><td>Catalog Size</td><td class="metric pin">99,000+</td><td class="metric">Limited</td></tr>
     </tbody>
   </table>
   </div>
 </section>
 
-<!--
-  PLACEHOLDER PRICING — these tiers and prices are subject to revision before App Store launch.
-  Confirm with user before any public-facing reference.
-  Math check (current values):
-    Collector monthly:   $7.99 × 12 = $95.88/yr;  annual $59.99  → save 37.4%
-    Pro monthly:        $14.99 × 12 = $179.88/yr; annual $119.99 → save 33.3%
-  "Up to 37%" framing is accurate across both tiers.
--->
 <section class="pricing" id="pricing">
   <h2>Simple, transparent <em>pricing</em></h2>
   <p class="section-sub">Start free. Upgrade when you've outgrown it.</p>
@@ -755,33 +750,13 @@ footer {
       <div class="price-row">
         <span class="price">$0</span>
       </div>
-      <div class="price-alt">No card required</div>
+      <div class="price-alt">Free forever</div>
       <ul class="perks">
-        <li><span class="perk-check">✓</span> Limited scans per month</li>
-        <li><span class="perk-check">✓</span> Basic collection management</li>
-        <li><span class="perk-check">✓</span> Read-only catalog browsing</li>
-      </ul>
-      <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        Coming to the App Store
-      </span>
-    </div>
-
-    <!-- Collector -->
-    <div class="pricing-card featured">
-      <div class="popular-badge">Most Popular</div>
-      <div class="plan-name">Collector</div>
-      <div class="price-row">
-        <span class="price">$7.99</span>
-        <span class="period">/month</span>
-      </div>
-      <div class="price-alt">or $59.99/year (save 37%)</div>
-      <ul class="perks">
-        <li><span class="perk-check">✓</span> Unlimited scans</li>
-        <li><span class="perk-check">✓</span> Full collection management</li>
-        <li><span class="perk-check">✓</span> Authentication flagging</li>
-        <li><span class="perk-check">✓</span> Trade matching &amp; messaging</li>
-        <li><span class="perk-check">✓</span> Market price lookups</li>
+        <li><span class="perk-check">✓</span> Unlimited personal collection</li>
+        <li><span class="perk-check">✓</span> Catalog browsing &amp; search</li>
+        <li><span class="perk-check">✓</span> 20 AI identification scans/month</li>
+        <li><span class="perk-check">✓</span> Manual pin entry &amp; tags</li>
+        <li><span class="perk-check">✓</span> Wishlist &amp; trade matching</li>
       </ul>
       <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
         <span class="pulse-dot" aria-hidden="true"></span>
@@ -793,15 +768,16 @@ footer {
     <div class="pricing-card">
       <div class="plan-name">Pro</div>
       <div class="price-row">
-        <span class="price">$14.99</span>
+        <span class="price">$12.99</span>
         <span class="period">/month</span>
       </div>
-      <div class="price-alt">or $119.99/year (save 33%)</div>
+      <div class="price-alt">or $99.99/year (save ~$56/year)</div>
       <ul class="perks">
-        <li><span class="perk-check">✓</span> Everything in Collector</li>
-        <li><span class="perk-check">✓</span> Advanced trade tools</li>
-        <li><span class="perk-check">✓</span> Set completion view</li>
-        <li><span class="perk-check">✓</span> Priority support</li>
+        <li><span class="perk-check">✓</span> Everything in Free</li>
+        <li><span class="perk-check">✓</span> Unlimited AI identification scans</li>
+        <li><span class="perk-check">✓</span> 100 authenticity scans/month</li>
+        <li><span class="perk-check">✓</span> eBay price alerts on wishlist</li>
+        <li><span class="perk-check">✓</span> Set completion alerts</li>
       </ul>
       <span class="coming-soon-pill" role="status" aria-label="Coming to the App Store">
         <span class="pulse-dot" aria-hidden="true"></span>
@@ -810,7 +786,39 @@ footer {
     </div>
   </div>
 
-  <p class="pricing-savings-note">Annual saves up to 37% vs monthly.</p>
+  <p class="pricing-savings-note">Annual saves ~$56/year vs monthly.</p>
+
+  <h3 class="pricing-table-heading">Full feature comparison</h3>
+  <div class="comp-table-wrapper">
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th class="other-col">Free</th>
+        <th class="pin-col">Pro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Monthly</td><td class="metric">$0</td><td class="metric pin">$12.99</td></tr>
+      <tr><td>Annual</td><td class="metric">$0</td><td class="metric pin">$99.99 (save ~$56/yr)</td></tr>
+      <tr><td>Personal collection size</td><td class="metric">Unlimited</td><td class="metric pin">Unlimited</td></tr>
+      <tr><td>Sync + backup</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Catalog browsing + search</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Manual pin entry</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Wishlist</td><td class="metric">Unlimited</td><td class="metric pin">Unlimited</td></tr>
+      <tr><td>Tags / multiple collections</td><td class="metric">Unlimited</td><td class="metric pin">Unlimited</td></tr>
+      <tr><td>Set completion view</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Set completion alerts</td><td class="x">—</td><td class="check">✓</td></tr>
+      <tr><td>Trade browsing</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Trade matching / smart matches</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Profiles (full, trade-context)</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>eBay price charts</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>Wishlist eBay alerts</td><td class="x">—</td><td class="check">✓</td></tr>
+      <tr><td>AI identification scans</td><td class="metric">20/mo</td><td class="metric pin">Unlimited</td></tr>
+      <tr><td>Authentication scans</td><td class="x">—</td><td class="metric pin">100/mo</td></tr>
+    </tbody>
+  </table>
+  </div>
 </section>
 
 <!-- Footer -->
