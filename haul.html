@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Haul: Mileage & Sales — Find. Flip. Track. Profit.</title>
 <meta name="description" content="The all-in-one iOS app for resellers. Find yard sales, scan items for eBay prices, list directly to eBay, track mileage for taxes, and calculate your profit — all from your phone.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dataforgesystems.io/haul.html">
+<meta property="og:title" content="Haul: Mileage & Sales — Find. Flip. Track. Profit.">
+<meta property="og:description" content="The all-in-one iOS app for resellers. Find yard sales, scan items for eBay prices, list directly to eBay, track mileage for taxes, and calculate your profit — all from your phone.">
+<meta property="og:image" content="https://dataforgesystems.io/assets/08-ad-intro-1320x2868.png">
+<meta property="og:image:width" content="1320">
+<meta property="og:image:height" content="2868">
+<meta property="og:image:alt" content="Haul — Find. Flip. Track. Profit. iOS app for resellers.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://dataforgesystems.io/haul.html">
+<meta name="twitter:title" content="Haul: Mileage & Sales — Find. Flip. Track. Profit.">
+<meta name="twitter:description" content="The all-in-one iOS app for resellers. Find yard sales, scan items for eBay prices, list directly to eBay, track mileage for taxes, and calculate your profit — all from your phone.">
+<meta name="twitter:image" content="https://dataforgesystems.io/assets/08-ad-intro-1320x2868.png">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -66,13 +79,17 @@ nav .nav-links a {
   transition: color 0.2s;
 }
 nav .nav-links a:hover { color: var(--accent); }
-nav .cta-btn {
+nav .nav-links a.cta-btn {
   background: var(--accent); color: #0a0a0a;
   padding: 8px 20px; border-radius: 8px;
   font-weight: 600; font-size: 0.85rem;
   text-decoration: none; transition: all 0.2s;
 }
-nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-1px); }
+nav .nav-links a.cta-btn:hover {
+  color: #0a0a0a;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: translateY(-1px);
+}
 
 /* Hero */
 .hero {
@@ -117,7 +134,8 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--accent);
 }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.app-badge { display: inline-flex; }
 .btn-primary {
   background: var(--accent); color: #0a0a0a;
   padding: 14px 32px; border-radius: 12px;
@@ -149,57 +167,16 @@ nav .cta-btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: transla
   position: relative;
   box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px var(--accent-dim);
 }
-.phone-notch {
-  width: 120px; height: 28px;
-  background: #0a0a0a; border-radius: 0 0 16px 16px;
-  margin: 0 auto 12px; position: relative; z-index: 2;
-}
 .phone-screen {
-  width: 100%; height: calc(100% - 40px);
+  width: 100%; height: 100%;
   background: var(--bg);
   border-radius: 28px;
-  overflow: hidden; padding: 16px;
+  overflow: hidden;
 }
-.phone-screen .app-header {
-  text-align: center; margin-bottom: 16px;
-}
-.phone-screen .app-header h3 {
-  font-size: 0.75rem; color: var(--text-dim);
-  text-transform: uppercase; letter-spacing: 2px;
-}
-.phone-screen .scan-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px; margin-bottom: 10px;
-}
-.phone-screen .scan-card .item-name {
-  font-weight: 600; font-size: 0.8rem; margin-bottom: 4px;
-}
-.phone-screen .scan-card .price {
-  font-family: var(--mono); font-size: 1.4rem;
-  color: var(--accent); font-weight: 700;
-}
-.phone-screen .scan-card .price-label {
-  font-size: 0.65rem; color: var(--text-dim);
-}
-.phone-screen .scan-card .comps {
-  font-size: 0.65rem; color: var(--text-muted); margin-top: 6px;
-}
-.phone-screen .action-btn {
-  width: 100%; padding: 10px;
-  background: var(--accent); color: #0a0a0a;
-  border: none; border-radius: 10px;
-  font-weight: 700; font-size: 0.75rem;
-  margin-top: 6px; cursor: default;
-  font-family: var(--font);
-}
-.phone-screen .action-btn.secondary {
-  background: transparent; color: var(--accent);
-  border: 1px solid var(--accent);
-}
-.phone-screen .flow-hint {
-  text-align: center; font-size: 0.6rem;
-  color: var(--text-muted); margin-top: 10px;
-  letter-spacing: 1px;
+.phone-screenshot {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Pipeline section */
@@ -462,7 +439,7 @@ footer {
 <body>
 
 <nav>
-  <a href="#" class="brand">
+  <a href="haul.html" class="brand">
     <div class="logo-h">H</div>
     Haul
   </a>
@@ -473,7 +450,7 @@ footer {
     <a href="#compare">Compare</a>
     <a href="#pricing">Pricing</a>
     <a href="https://dataforgesystems.io">DataForge Systems</a>
-    <a href="#" class="cta-btn">Download on iOS</a>
+    <a href="https://apps.apple.com/us/app/haul-mileage-sales/id6762392290" class="cta-btn">Download on iOS</a>
   </div>
 </nav>
 
@@ -493,9 +470,8 @@ footer {
         <div class="badge"><div class="dot"></div> IRS-ready reports</div>
       </div>
       <div class="hero-actions">
-        <a href="#" class="btn-primary">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          Download for iOS
+        <a href="https://apps.apple.com/us/app/haul-mileage-sales/id6762392290" class="app-badge" aria-label="Download Haul on the App Store">
+          <img src="assets/app-store-badge.svg" alt="Download on the App Store" height="60">
         </a>
         <a href="#pipeline" class="btn-secondary">See how it works →</a>
       </div>
@@ -503,20 +479,10 @@ footer {
 
     <div class="hero-visual">
       <div class="phone-frame">
-        <div class="phone-notch"></div>
         <div class="phone-screen">
-          <div class="app-header">
-            <h3>Flip Check</h3>
-          </div>
-          <div class="scan-card">
-            <div class="item-name">Razer DeathAdder Gaming Mouse</div>
-            <div class="price">$34.99</div>
-            <div class="price-label">Avg Sold Price</div>
-            <div class="comps">Based on 12 recent eBay sales</div>
-          </div>
-          <button class="action-btn">Add & List on eBay</button>
-          <button class="action-btn secondary" style="margin-top: 6px;">Add to Inventory</button>
-          <div class="flow-hint">SCAN → INVENTORY → LIST → SELL</div>
+          <img src="assets/01-flip-check-1320x2868.png"
+               alt="Haul Flip Check screen showing live eBay price comparison"
+               class="phone-screenshot">
         </div>
       </div>
     </div>
@@ -539,7 +505,7 @@ footer {
       <div class="step-num">02</div>
       <div class="step-icon">📸</div>
       <h3>Scan & Price</h3>
-      <p>Point your camera at any item. AI identifies it and pulls real eBay sold prices instantly. Know if it's worth buying before you spend a dime.</p>
+      <p>Point your camera at any item. AI identifies it and pulls live eBay comps instantly. Know what similar items are going for before you buy.</p>
     </div>
     <div class="pipeline-step">
       <div class="step-num">03</div>
@@ -575,7 +541,7 @@ footer {
     <div class="feature-card">
       <div class="feat-icon">📷</div>
       <h3>Flip Check</h3>
-      <p>AI-powered item identification with real eBay sold prices. See what items actually sell for — not just what people are asking.</p>
+      <p>AI-powered item identification with live eBay comps. See what similar items are currently listed for before you buy.</p>
     </div>
     <div class="feature-card">
       <div class="feat-icon">📦</div>
@@ -685,8 +651,8 @@ footer {
         <li><span class="perk-check">✓</span> Route optimization</li>
         <li><span class="perk-check">✓</span> Inventory management</li>
       </ul>
-      <a href="#" class="btn-primary">Start 14-Day Free Trial</a>
-      <p class="trial-note">No credit card required</p>
+      <a href="https://apps.apple.com/us/app/haul-mileage-sales/id6762392290" class="btn-primary">Start 14-Day Free Trial</a>
+      <p class="trial-note">Start your trial — cancel anytime</p>
     </div>
 
     <!-- Business -->
@@ -702,8 +668,8 @@ footer {
         <li><span class="perk-check">✓</span> Everything in Pro</li>
         <li><span class="perk-check">✓</span> Built for high-volume resellers</li>
       </ul>
-      <a href="#" class="btn-primary">Start 14-Day Free Trial</a>
-      <p class="trial-note">No credit card required</p>
+      <a href="https://apps.apple.com/us/app/haul-mileage-sales/id6762392290" class="btn-primary">Start 14-Day Free Trial</a>
+      <p class="trial-note">Start your trial — cancel anytime</p>
     </div>
 
     <!-- Enterprise -->
@@ -722,7 +688,7 @@ footer {
     </div>
   </div>
 
-  <p class="pricing-trial-note">All plans include a 14-day free trial. No credit card required.</p>
+  <p class="pricing-trial-note">All plans include a 14-day free trial. Cancel anytime.</p>
 </section>
 
 <!-- Footer -->
@@ -746,7 +712,7 @@ footer {
       <h4>Legal</h4>
       <a href="https://dataforgesystems.io/haul-privacy-policy.html">Privacy Policy</a>
       <a href="https://dataforgesystems.io/haul-support.html">Support</a>
-      <a href="#">Terms of Service</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Service</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
@@ -756,6 +722,7 @@ footer {
   </div>
   <div class="footer-bottom">
     <span>© 2026 DataForge Systems LLC. All rights reserved.</span>
+    <span>Last updated: April 21, 2026</span>
     <span>Made in Huntsville, Alabama</span>
   </div>
 </footer>
